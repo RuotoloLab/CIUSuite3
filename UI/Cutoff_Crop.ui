@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="cutoff_crop">
+    <property name="height">200</property>
+    <property name="relief">flat</property>
+    <property name="width">200</property>
+    <child>
+      <object class="tk.Button" id="cutoff_button">
+        <property cbtype="simple" name="command" type="command">on_button_cutoff_clicked</property>
+        <property name="compound">left</property>
+        <property name="font">TkDefaultFont</property>
+        <property name="image">Signal-cutoff.png</property>
+        <property name="state">normal</property>
+        <property name="takefocus">false</property>
+        <property name="text" translatable="yes">  Intensity Cutoff</property>
+        <layout manager="pack">
+          <property name="ipadx">13</property>
+          <property name="ipady">8</property>
+          <property name="padx">20</property>
+          <property name="pady">5</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Button" id="crop_button">
+        <property name="bitmap">error</property>
+        <property cbtype="simple" name="command" type="command">on_button_crop_clicked</property>
+        <property name="compound">left</property>
+        <property name="image">Crop-small2.png</property>
+        <property name="text" translatable="yes">  Crop</property>
+        <layout manager="pack">
+          <property name="ipadx">42</property>
+          <property name="pady">5</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>

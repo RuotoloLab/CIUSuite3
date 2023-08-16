@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="watersimport">
+    <property name="container">false</property>
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="tk.Button" id="Watersdt">
+        <property cbtype="simple" name="command" type="command">on_button_waterdt_clicked</property>
+        <property name="default">normal</property>
+        <property name="text" translatable="yes">Uncalibrated Data</property>
+        <layout manager="pack">
+          <property name="ipadx">6</property>
+          <property name="pady">5</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Button" id="WatersCCS">
+        <property cbtype="simple" name="command" type="command">on_button_watersccs_clicked</property>
+        <property name="text" translatable="yes">CCS Calibrated Data</property>
+        <layout manager="pack">
+          <property name="padx">5</property>
+          <property name="pady">5</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Text" id="text1">
+        <property name="cursor">arrow</property>
+        <property name="font">TkDefaultFont</property>
+        <property name="height">5</property>
+        <property name="insertunfocussed">none</property>
+        <property name="relief">flat</property>
+        <property name="setgrid">false</property>
+        <property name="tabstyle">wordprocessor</property>
+        <property name="text" translatable="yes">Upload a .csv file with the desired parameters to pass to TWIMExtract. Using "CCS Calibrated data" will send the fingerpritns information to IMSCal19, along with appropariate parameters. Refer to Manual for more information. Window will close when finished. Open new files using _raw.csv import.</property>
+        <property name="undo">false</property>
+        <property name="wrap">word</property>
+        <layout manager="pack">
+          <property name="side">right</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>
