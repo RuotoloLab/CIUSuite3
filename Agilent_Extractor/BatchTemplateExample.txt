@@ -1,0 +1,17 @@
+﻿# Lines starting with # are comments, and won't be read											
+# Each set of raw data should be entered on a line starting with "Raw:". Raw files must be provided as FULL PATHS
+# Each subsequent line should contain ranges for a charge state from that raw data. Leave blank any range set (m/z, DT, or CCS) that you don't want
+# DT mode: include only m/z and DT ranges. CCS mode if staged: include "ccs z" and "ccs mz" as well. CCS mode unstaged: include all 5 CCS parameters.
+#
+# In the examples below, the first extracts 5 ranges from a dataset made up of 4 raw files in DT mode; the second extracts 2 ranges in CCS mode	
+# Raw	File 1	File 2 	File 3	…	…	…	…	…	…	…	…
+Raw:	C:\Folder\RawFile_TimeSegmented.d										
+# mz low	mz high	dt low	dt high	ccs z	ccs mz	ccs t_fix	ccs beta	ccs gas	If time segmented data, include number of frames to trim here		
+4875	5025	35	64.5						2		
+5050	5200	35	64.5						2		
+5225	5375	35	64.5						2		
+5450	5575	35	64.5						2		
+5650	5800	35	64.5						2		
+Raw:	C:\Folder2\RawFile01.d	C:\Folder2\RawFile02.d	C:\Folder2\RawFile03.d	C:\Folder2\RawFile04.d							
+4875	5025	35	64.5	16	4950	0.011	0.2	28			
+5050	5200	35	64.5	15	5125	0.011	0.2	28			
