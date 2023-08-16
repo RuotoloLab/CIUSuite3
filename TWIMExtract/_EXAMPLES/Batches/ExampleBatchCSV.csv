@@ -1,0 +1,14 @@
+# EXAMPLE BATCH CSV FILE,
+# (lines starting with '#' will be ignored),
+#,
+"# INSTRUCTIONS: Each line below represents a single 'run' of the extractor, so the 'batch' file is essentially a list of runs you'd like it to perform. ",
+# The first column (A) should contain the full system path to a FOLDER containing raw files (e.g. C:\some folder\name of folder containing .raw files),
+# Second column (B) should contain the full system path to a FOLDER containing the range or rule files you want to use to extract data from the raw files listed on the same line,
+"# NOTE: Since Waters' raw data files are folders themselves, the first column should be pointing to a folder containing multiple .raw 'folders' inside it. ",
+#,
+"# The example below shows a short batch that runs one folder of raw data (#1) with 2 different sets of range files (ExampleRangeFolders 1 and 2), then a",
+"#      second set of raw data (#2) with the first set of range files. Each line is its own extraction, so any raw data can be matched with any range data on the same line to make an extraction.",
+#,
+C:\CIUGen\Batches\ExampleRawFolder,C:\CIUGen\Batches\ExampleRangeFolder
+C:\CIUGen\Batches\ExampleRawFolder,C:\CIUGen\Batches\ExampleRangeFolder2
+C:\CIUGen\Batches\ExampleRawFolder2,C:\CIUGen\Batches\ExampleRangeFolder

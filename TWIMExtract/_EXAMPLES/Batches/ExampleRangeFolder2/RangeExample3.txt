@@ -1,0 +1,6 @@
+MZ_start_(m/z): 1000
+MZ_end_(m/z): 1200
+RT_start_(minutes): 4.5
+RT_end_(minutes): 5.0
+DT_start_(bins): 30
+DT_end_(bins): 90

@@ -1,0 +1,9 @@
+# Edit the m/z, RT, and DT ranges below to define the cube of data to be extracted. 
+# Note: do NOT change the names of fields - only edit things after the colon. 
+#
+MZ_start_(m/z): 100
+MZ_end_(m/z): 8000
+RT_start_(minutes): 0
+RT_end_(minutes): 100
+DT_start_(bins): 1
+DT_end_(bins): 200

@@ -1,0 +1,12 @@
+#############################
+# An example 'range file' is below
+# NOTE: DT information MUST be in bins, not ms. See help file for more information
+# Fields:
+[m/z start] 	[m/z end] 	[# of m/z bins]
+[RT start]	[RT end]	[# of RT bins]
+[DT start]	[DT end]	[# of DT bins]
+
+# Example: m/z from 100-1200, RT from 0-10 minutes, all drift bins (1-200)
+100 1200 100000
+0 10 100
+1 200 200

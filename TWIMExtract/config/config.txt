@@ -1,0 +1,5 @@
+Raw_Directory,C:\Users\caror\Documents\Los Archivos X\School\UMich\cyclicIM Manuscript\2021_02_19
+Range_Directory,C:\Users\caror\Documents\Los Archivos X\School\UMich\cyclicIM Manuscript\Notch paper\cIM_CIU\Range_Files
+Output_Directory,C:\Users\caror\eclipse-workspace
+Batch_Directory,C:\
+Rule_Directory,C:\
