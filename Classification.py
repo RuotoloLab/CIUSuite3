@@ -613,7 +613,7 @@ def lda_svc_best_feats(flat_subset_list, selected_features, all_features, output
     :rtype: ClassificationScheme
     """
     train_data, train_numeric_labels, train_string_labels = arrange_lda_new(flat_subset_list)
-    svc, lda = run_lda_svc(train_data, train_numeric_labels)
+    svc, lda = run_lda_svc(train_data, train_numeric_labels, selected_features)
 
     x_lda = lda.transform(train_data)
     expl_var_r = lda.explained_variance_ratio_
@@ -649,7 +649,7 @@ def lda_svc_best_feats(flat_subset_list, selected_features, all_features, output
     return scheme
 
 
-def run_lda_svc(x_data, label_data):
+def run_lda_svc(x_data, label_data, num_selfatures):
     """
     Run LDA and SVC analysis of a set of data and return the resulting classifier
     :param x_data: input x data
@@ -657,7 +657,7 @@ def run_lda_svc(x_data, label_data):
     :return: sklearn.svm.SVC classifier object and LDA object
     :rtype: SVC, LinearDiscriminantAnalysis
     """
-    lda = LinearDiscriminantAnalysis(solver='svd', n_components=5)
+    lda = LinearDiscriminantAnalysis(solver='svd', n_components=int(num_selfatures)+1)
     lda.fit(x_data, label_data)
     train_lda = lda.transform(x_data)
 
