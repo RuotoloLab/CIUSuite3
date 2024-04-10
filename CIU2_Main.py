@@ -24,7 +24,7 @@ import os
 # Load resource file paths, supporting both live code and code bundled by PyInstaller
 if getattr(sys, 'frozen', False):
     root_dir = sys._MEIPASS
-    program_data_dir = os.path.join(os.environ['ALLUSERSPROFILE'], 'CIUSuite2')
+    program_data_dir = os.path.join(os.environ['ALLUSERSPROFILE'], 'CIUSuite3')
 else:
     root_dir = os.path.dirname(__file__)
     program_data_dir = root_dir
@@ -35,7 +35,7 @@ guardpath = os.path.join(program_data_dir, 'guardfile.txt')
 if __name__ == '__main__':
     if not os.path.exists(guardpath):
 
-        print('Loading CIUSuite 2 modules...')
+        print('Loading CIUSuite 3 modules...')
 
 import pygubu
 import tkinter as tk
@@ -80,7 +80,7 @@ hard_watersimport_ui = os.path.join(root_dir, 'UI', 'WatersImport_type.ui')
 hard_cutoffcrop = os.path.join(root_dir, 'UI', 'Cutoff_crop.ui')
 hard_agilent_ext_path = os.path.join(root_dir, os.path.join('Agilent_Extractor', 'MIDAC_CIU_Extractor.exe'))
 hard_tooltips_file = os.path.join(root_dir, 'tooltips.txt')
-help_file = os.path.join(root_dir, 'CIUSuite2_Manual.pdf')
+help_file = os.path.join(root_dir, 'CIUSuite3_Manual.pdf')
 about_file = os.path.join(root_dir, 'README.txt')
 log_file = os.path.join(program_data_dir, 'ciu2.log')
 PROJECT_PATH = os.path.join(root_dir, 'UI')
@@ -854,7 +854,7 @@ class CIUSuite2(object):
                 # Determine if a file range has been specified
                 files_to_read = self.check_file_range_entries()
                 self.progress_started()
-                logger.info('\n**** Starting Gaussian Fitting - THIS MAY TAKE SOME TIME - CIUSuite 2 will not respond until fitting is completed ****')
+                logger.info('\n**** Starting Gaussian Fitting - THIS MAY TAKE SOME TIME - CIUSuite 3 will not respond until fitting is completed ****')
 
                 new_file_list = []
                 gauss_filenames = []
@@ -1416,7 +1416,7 @@ class CIUSuite2(object):
         """
         Open the Agilent CIU extractor app with a specified output directory. The extractor app will generate _raw.csv
         files into the specified directory. Then runs Agilent data converter script to handle duplicate DTs and
-        edit the CV header to be the correct values. Finally, loads data into CIUSuite 2 using the standard load
+        edit the CV header to be the correct values. Finally, loads data into CIUSuite 3 using the standard load
         raw files method.
         :return: void
         """
@@ -2023,7 +2023,7 @@ def load_analysis_obj(analysis_filename):
 
 def init_logs():
     """
-    Initialize logging code for CIUSuite 2. Logs debug information to file, warning and above to file and
+    Initialize logging code for CIUSuite 3. Logs debug information to file, warning and above to file and
     console output. NOTE: using the WARNING level really as INFO to avoid GUI builder logs from
     image creation being displayed on program start.
     :return: logger
@@ -2064,7 +2064,7 @@ if __name__ == '__main__':
     root = tk.Tk()
     root.withdraw()
     ciu_app = CIUSuite2(root)
-    logger.info('Starting CIUSuite 2')
+    logger.info('Starting CIUSuite 3')
     ciu_app.run()
 
     # closer handlers once finished
