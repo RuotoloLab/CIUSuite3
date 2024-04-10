@@ -1,9 +1,9 @@
 """
-Main entry point for CIUSuite 2 and location of all GUI handling code, along with some
+Main entry point for CIUSuite 3 and location of all GUI handling code, along with some
 basic file operations.
 
 
-CIUSuite 2 Copyright (C) 2018 Daniel Polasky and Sugyan Dixit
+CIUSuite 3 Copyright (C) 2023 Chae Kyung Jeon, Carolina Rojas Ramirez
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -61,6 +61,7 @@ import Multi_Dimensional_Preprocessing as mdp
 from Signal_Cutoff import signal_cutoff_main
 from peakpicking_mz import peakpicking_main
 from SIU_CV_Correction import CV_correction_main
+from DTIM_CCS_calibration import DTIM_CCS_calibration_main
 
 import matplotlib
 matplotlib.rcParams.update({'figure.autolayout': True})
@@ -142,6 +143,7 @@ class CIUSuite2(object):
             'on_button_peakpicking_clicked': self.on_button_peakpicking_clicked,
             'on_button_cvcorrection_clicked': self.on_button_cvcorrection_clicked,
             'on_button_multi_dimensional_preprocessing_clicked': self.on_button_multi_dimensional_preprocessing_clicked,
+            'on_button_DTIM_CCS_calibration_clicked': self.on_button_DTIM_CCS_calibration_clicked
         }
         builder.connect_callbacks(callbacks)
         self.initialize_tooltips()
@@ -323,6 +325,15 @@ class CIUSuite2(object):
         self.builder.get_object('Entry_num_files').delete(0, tk.END)
         self.builder.get_object('Entry_num_files').insert(0, str(len(files_to_display)))
         self.builder.get_object('Entry_num_files').config(state=tk.DISABLED)
+
+    def on_button_DTIM_CCS_calibration_clicked(self):
+        """
+        open DTIM_CCS_calibration code process
+        return: void
+        """
+
+        DTIM_CCS_calibration_main()
+        self.progress_done()
 
 
     def on_button_restore_clicked(self):
