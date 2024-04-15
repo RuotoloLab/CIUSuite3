@@ -3,7 +3,7 @@
 
 #define MyAppName "CIUSuite 3"
 #define MyAppDirName "CIUSuite3"
-#define MyAppVersion "3.0"
+#define MyAppVersion "1.0"
 #define MyAppPublisher "University of Michigan"
 #define MyAppURL "https://github.com/RuotoloLab/CIUSuite2/releases/tag/v3.0.0"
 #define MyAppExeName "CIU2_Main.exe"
@@ -32,7 +32,7 @@ AllowNoIcons=yes
 LicenseFile={#SourceDir}\LICENSE.txt
 ;InfoAfterFile=C:\Users\dpolasky\PycharmProjects\CIUSuite2\README.txt
 OutputDir={#OutputDir}
-OutputBaseFilename=CIUSuite2_Setup
+OutputBaseFilename=CIUSuite3_Setup
 Compression=lzma
 SolidCompression=yes
 UsePreviousAppDir=False
