@@ -24,7 +24,7 @@ import os
 # Load resource file paths, supporting both live code and code bundled by PyInstaller
 if getattr(sys, 'frozen', False):
     root_dir = sys._MEIPASS
-    program_data_dir = os.path.join(os.environ['ALLUSERSPROFILE'], 'CIUSuite2')
+    program_data_dir = os.path.join(os.environ['ALLUSERSPROFILE'], 'CIUSuite3')
 else:
     root_dir = os.path.dirname(__file__)
     program_data_dir = root_dir
@@ -36,6 +36,7 @@ if __name__ == '__main__':
     if not os.path.exists(guardpath):
 
         print('Loading CIUSuite 2 modules...')
+        program_data_dir = "C:\ProgramData\CIUSuite3"
 
 import pygubu
 import tkinter as tk
