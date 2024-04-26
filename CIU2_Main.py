@@ -1,9 +1,9 @@
 """
-Main entry point for CIUSuite 2 and location of all GUI handling code, along with some
+Main entry point for CIUSuite 3 and location of all GUI handling code, along with some
 basic file operations.
 
 
-CIUSuite 2 Copyright (C) 2018 Daniel Polasky and Sugyan Dixit
+CIUSuite 3 Copyright (C) 2023 Chae Kyung Jeon, Carolina Rojas Ramirez
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,8 +35,7 @@ guardpath = os.path.join(program_data_dir, 'guardfile.txt')
 if __name__ == '__main__':
     if not os.path.exists(guardpath):
 
-        print('Loading CIUSuite 2 modules...')
-        program_data_dir = "C:\ProgramData\CIUSuite3"
+        print('Loading CIUSuite 3 modules...')
 
 import pygubu
 import tkinter as tk
@@ -62,6 +61,7 @@ import Multi_Dimensional_Preprocessing as mdp
 from Signal_Cutoff import signal_cutoff_main
 from peakpicking_mz import peakpicking_main
 from SIU_CV_Correction import CV_correction_main
+from DTIM_CCS_calibration import DTIM_CCS_calibration_main
 
 import matplotlib
 matplotlib.rcParams.update({'figure.autolayout': True})
@@ -80,7 +80,7 @@ hard_watersimport_ui = os.path.join(root_dir, 'UI', 'WatersImport_type.ui')
 hard_cutoffcrop = os.path.join(root_dir, 'UI', 'Cutoff_crop.ui')
 hard_agilent_ext_path = os.path.join(root_dir, os.path.join('Agilent_Extractor', 'MIDAC_CIU_Extractor.exe'))
 hard_tooltips_file = os.path.join(root_dir, 'tooltips.txt')
-help_file = os.path.join(root_dir, 'CIUSuite2_Manual.pdf')
+help_file = os.path.join(root_dir, 'CIUSuite3_Manual.pdf')
 about_file = os.path.join(root_dir, 'README.txt')
 log_file = os.path.join(program_data_dir, 'ciu2.log')
 PROJECT_PATH = os.path.join(root_dir, 'UI')
@@ -143,6 +143,7 @@ class CIUSuite2(object):
             'on_button_peakpicking_clicked': self.on_button_peakpicking_clicked,
             'on_button_cvcorrection_clicked': self.on_button_cvcorrection_clicked,
             'on_button_multi_dimensional_preprocessing_clicked': self.on_button_multi_dimensional_preprocessing_clicked,
+            'on_button_DTIM_CCS_calibration_clicked': self.on_button_DTIM_CCS_calibration_clicked
         }
         builder.connect_callbacks(callbacks)
         self.initialize_tooltips()
@@ -324,6 +325,15 @@ class CIUSuite2(object):
         self.builder.get_object('Entry_num_files').delete(0, tk.END)
         self.builder.get_object('Entry_num_files').insert(0, str(len(files_to_display)))
         self.builder.get_object('Entry_num_files').config(state=tk.DISABLED)
+
+    def on_button_DTIM_CCS_calibration_clicked(self):
+        """
+        open DTIM_CCS_calibration code process
+        return: void
+        """
+
+        DTIM_CCS_calibration_main()
+        self.progress_done()
 
 
     def on_button_restore_clicked(self):
@@ -844,7 +854,7 @@ class CIUSuite2(object):
                 # Determine if a file range has been specified
                 files_to_read = self.check_file_range_entries()
                 self.progress_started()
-                logger.info('\n**** Starting Gaussian Fitting - THIS MAY TAKE SOME TIME - CIUSuite 2 will not respond until fitting is completed ****')
+                logger.info('\n**** Starting Gaussian Fitting - THIS MAY TAKE SOME TIME - CIUSuite 3 will not respond until fitting is completed ****')
 
                 new_file_list = []
                 gauss_filenames = []
@@ -1406,7 +1416,7 @@ class CIUSuite2(object):
         """
         Open the Agilent CIU extractor app with a specified output directory. The extractor app will generate _raw.csv
         files into the specified directory. Then runs Agilent data converter script to handle duplicate DTs and
-        edit the CV header to be the correct values. Finally, loads data into CIUSuite 2 using the standard load
+        edit the CV header to be the correct values. Finally, loads data into CIUSuite 3 using the standard load
         raw files method.
         :return: void
         """
@@ -2013,7 +2023,7 @@ def load_analysis_obj(analysis_filename):
 
 def init_logs():
     """
-    Initialize logging code for CIUSuite 2. Logs debug information to file, warning and above to file and
+    Initialize logging code for CIUSuite 3. Logs debug information to file, warning and above to file and
     console output. NOTE: using the WARNING level really as INFO to avoid GUI builder logs from
     image creation being displayed on program start.
     :return: logger
@@ -2054,7 +2064,7 @@ if __name__ == '__main__':
     root = tk.Tk()
     root.withdraw()
     ciu_app = CIUSuite2(root)
-    logger.info('Starting CIUSuite 2')
+    logger.info('Starting CIUSuite 3')
     ciu_app.run()
 
     # closer handlers once finished

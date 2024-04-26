@@ -162,6 +162,7 @@
             </child>
             <child>
               <object class="ttk.Button" id="button_DTIM_CCS_Calibration" named="True">
+                <property name="command" type="command" cbtype="simple">on_button_DTIM_CCS_calibration_clicked</property>
                 <property name="text" translatable="yes">Agilent CCS Calibration</property>
                 <layout manager="grid">
                   <property name="column">1</property>
