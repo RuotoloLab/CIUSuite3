@@ -1,4 +1,17 @@
-                    GNU GENERAL PUBLIC LICENSE
+
+*****************************************************************
+Any publications that utilize the software must cite:
+
+Daniel A Polasky, Sugyan M Dixit, Sarah M Fantin, and Brandon T. Ruotolo. 
+"CIUSuite 2: Next-Generation Softare for the Analysis of Gas-phase Protein 
+Unfolding Data." Anal. Chem. 2019. DOI: 10.1021/acs.analchem.8b05762
+
+https://pubs.acs.org/doi/10.1021/acs.analchem.8b05762
+
+*****************************************************************
+
+
+		      GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
