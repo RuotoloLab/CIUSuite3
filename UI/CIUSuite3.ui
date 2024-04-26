@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<interface version="1.3">
+<interface version="1.2">
   <object class="tk.Toplevel" id="CIU_app_top">
     <property name="height">1000</property>
-    <property name="title" translatable="yes">CIUSuite 3, version 3.0</property>
+    <property name="title" translatable="yes">CIUSuite 3, version 1.0</property>
     <property name="width">200</property>
     <child>
       <object class="ttk.Frame" id="Logo_Panel">
@@ -18,7 +18,7 @@
         </containerlayout>
         <child>
           <object class="ttk.Button" id="Button_about">
-            <property name="command" args="" cbtype="simple" type="command">on_button_about_clicked</property>
+            <property args="" cbtype="simple" name="command" type="command">on_button_about_clicked</property>
             <property name="text" translatable="yes">About</property>
             <layout manager="grid">
               <property name="column">2</property>
@@ -31,7 +31,7 @@
         </child>
         <child>
           <object class="ttk.Button" id="Button_help">
-            <property name="command" args="" cbtype="simple" type="command">on_button_help_clicked</property>
+            <property args="" cbtype="simple" name="command" type="command">on_button_help_clicked</property>
             <property name="text" translatable="yes">Help</property>
             <layout manager="grid">
               <property name="column">0</property>
@@ -43,7 +43,7 @@
         </child>
         <child>
           <object class="ttk.Button" id="Button_gui">
-            <property name="command" args="" cbtype="simple" type="command">on_button_gui_clicked</property>
+            <property args="" cbtype="simple" name="command" type="command">on_button_gui_clicked</property>
             <property name="text" translatable="yes">Change GUI Size</property>
             <layout manager="grid">
               <property name="column">0</property>
@@ -108,7 +108,7 @@
             </child>
             <child>
               <object class="ttk.Button" id="Button_vendor_raw">
-                <property name="command" args="" cbtype="simple" type="command">on_button_vendor_raw_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_vendor_raw_clicked</property>
                 <property name="text" translatable="yes">Raw Instrument Files (.raw or .d)</property>
                 <property name="width">20</property>
                 <layout manager="grid">
@@ -126,7 +126,7 @@
             </child>
             <child>
               <object class="ttk.Button" id="Button_raw_file">
-                <property name="command" args="" cbtype="simple" type="command">on_button_rawfile_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_rawfile_clicked</property>
                 <property name="text" translatable="yes">Text Files (_raw.csv)</property>
                 <property name="width">20</property>
                 <layout manager="grid">
@@ -144,7 +144,7 @@
             </child>
             <child>
               <object class="ttk.Button" id="Button_analysis_file">
-                <property name="command" args="" cbtype="simple" type="command">on_button_analysisfile_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_analysisfile_clicked</property>
                 <property name="text" translatable="yes">CIU Files (.ciu)</property>
                 <property name="width">20</property>
                 <layout manager="grid">
@@ -161,8 +161,8 @@
               </object>
             </child>
             <child>
-              <object class="ttk.Button" id="button_DTIM_CCS_Calibration" named="True">
-                <property name="command" type="command" cbtype="simple">on_button_DTIM_CCS_calibration_clicked</property>
+              <object class="ttk.Button" id="button_DTIM_CCS_Calibration">
+                <property cbtype="simple" name="command" type="command">on_button_DTIM_CCS_calibration_clicked</property>
                 <property name="text" translatable="yes">Agilent CCS Calibration</property>
                 <layout manager="grid">
                   <property name="column">1</property>
@@ -353,7 +353,7 @@
             </child>
             <child>
               <object class="ttk.Button" id="Button_plot_options">
-                <property name="command" args="" cbtype="simple" type="command">on_button_plot_options_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_plot_options_clicked</property>
                 <property name="text" translatable="yes">** Plot Options for ALL Output Plots **</property>
                 <property name="width">20</property>
                 <layout manager="grid">
@@ -371,7 +371,7 @@
             </child>
             <child>
               <object class="ttk.Button" id="Button_change_outputdir">
-                <property name="command" args="" cbtype="simple" type="command">on_button_changedir_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_changedir_clicked</property>
                 <property name="text" translatable="yes">Change Output Directory</property>
                 <property name="width">20</property>
                 <layout manager="grid">
@@ -455,7 +455,7 @@
             </containerlayout>
             <child>
               <object class="ttk.Button" id="Button_crop">
-                <property name="command" cbtype="simple" type="command">on_button_crop_clicked</property>
+                <property cbtype="simple" name="command" type="command">on_button_crop_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">Crop-small2.png</property>
                 <property name="text" translatable="yes">Crop</property>
@@ -475,7 +475,7 @@
             </child>
             <child>
               <object class="ttk.Button" id="Button_smooth">
-                <property name="command" args="" cbtype="simple" type="command">on_button_smoothing_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_smoothing_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">smooth-small2.png</property>
                 <property name="text" translatable="yes"> Smooth</property>
@@ -492,7 +492,7 @@
             </child>
             <child>
               <object class="ttk.Button" id="Button_interpolate">
-                <property name="command" args="" cbtype="simple" type="command">on_button_interpolate_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_interpolate_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">interpolate-small.png</property>
                 <property name="text" translatable="yes"> Interpolate</property>
@@ -512,7 +512,7 @@
             </child>
             <child>
               <object class="ttk.Button" id="Button_print_params">
-                <property name="command" args="" cbtype="simple" type="command">on_button_printparams_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_printparams_clicked</property>
                 <property name="text" translatable="yes">Print Parameters to Console</property>
                 <property name="width">20</property>
                 <layout manager="grid">
@@ -542,7 +542,7 @@
             </child>
             <child>
               <object class="ttk.Button" id="Button_default_params">
-                <property name="command" args="" cbtype="simple" type="command">on_button_update_param_defaults_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_update_param_defaults_clicked</property>
                 <property name="text" translatable="yes">Update Default Parameters</property>
                 <property name="width">20</property>
                 <layout manager="grid">
@@ -560,7 +560,7 @@
             </child>
             <child>
               <object class="ttk.Button" id="Button_restore_raw">
-                <property name="command" args="" cbtype="simple" type="command">on_button_restore_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_restore_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">restore_original_data4.png</property>
                 <property name="text" translatable="yes">    Restore
@@ -581,7 +581,7 @@ Original Data</property>
             </child>
             <child>
               <object class="ttk.Button" id="Button_Cutoff">
-                <property name="command" cbtype="simple" type="command">on_button_cutoff_clicked</property>
+                <property cbtype="simple" name="command" type="command">on_button_cutoff_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">Signal-cutoff.png</property>
                 <property name="text" translatable="yes">Signal Cutoff</property>
@@ -595,8 +595,8 @@ Original Data</property>
               </object>
             </child>
             <child>
-              <object class="ttk.Button" id="Button_peakpicking" named="True">
-                <property name="command" type="command" cbtype="simple">on_button_peakpicking_clicked</property>
+              <object class="ttk.Button" id="Button_peakpicking">
+                <property cbtype="simple" name="command" type="command">on_button_peakpicking_clicked</property>
                 <property name="text" translatable="yes">Peak Picking</property>
                 <layout manager="grid">
                   <property name="column">1</property>
@@ -609,8 +609,8 @@ Original Data</property>
               </object>
             </child>
             <child>
-              <object class="ttk.Button" id="Button_SIU_CV_Correction" named="True">
-                <property name="command" type="command" cbtype="simple">on_button_cvcorrection_clicked</property>
+              <object class="ttk.Button" id="Button_SIU_CV_Correction">
+                <property cbtype="simple" name="command" type="command">on_button_cvcorrection_clicked</property>
                 <property name="text" translatable="yes">SIU CV Correction</property>
                 <layout manager="grid">
                   <property name="column">1</property>
@@ -641,7 +641,7 @@ Original Data</property>
             </containerlayout>
             <child>
               <object class="ttk.Button" id="Button_gaussian_fit">
-                <property name="command" args="" cbtype="simple" type="command">on_button_gaussfit_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_gaussfit_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">gaussian2.png</property>
                 <property name="text" translatable="yes">       Fit 
@@ -662,7 +662,7 @@ Original Data</property>
             </child>
             <child>
               <object class="ttk.Button" id="Button_gaussian_reconstruct">
-                <property name="command" args="" cbtype="simple" type="command">on_button_gaussian_reconstruction_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_gaussian_reconstruction_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">reconstruct1.png</property>
                 <property name="text" translatable="yes">   Reconstruct
@@ -723,7 +723,7 @@ Original Data</property>
             </containerlayout>
             <child>
               <object class="ttk.Button" id="Button_plot">
-                <property name="command" args="" cbtype="simple" type="command">on_button_oldplot_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_oldplot_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">plot2.png</property>
                 <property name="text" translatable="yes">     Plot</property>
@@ -743,7 +743,7 @@ Original Data</property>
             </child>
             <child>
               <object class="ttk.Button" id="Button_average">
-                <property name="command" args="" cbtype="simple" type="command">on_button_oldavg_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_oldavg_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">average2.png</property>
                 <property name="text" translatable="yes">   Average</property>
@@ -760,7 +760,7 @@ Original Data</property>
             </child>
             <child>
               <object class="ttk.Button" id="Button_compare">
-                <property name="command" args="" cbtype="simple" type="command">on_button_oldcompare_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_oldcompare_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">compare1.png</property>
                 <property name="text" translatable="yes"> Compare</property>
@@ -809,7 +809,7 @@ Original Data</property>
             </containerlayout>
             <child>
               <object class="ttk.Button" id="Button_build_classification">
-                <property name="command" args="" cbtype="simple" type="command">on_button_classification_supervised_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_classification_supervised_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">build.png</property>
                 <property name="text" translatable="yes">   Build
@@ -831,7 +831,7 @@ Original Data</property>
             </child>
             <child>
               <object class="ttk.Button" id="Button_classify_unknown">
-                <property name="command" args="" cbtype="simple" type="command">on_button_classify_unknown_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_classify_unknown_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">unknown.png</property>
                 <property name="text" translatable="yes">  Classify
@@ -860,8 +860,8 @@ Original Data</property>
               </object>
             </child>
             <child>
-              <object class="ttk.Button" id="Button_multidimensional_processing" named="True">
-                <property name="command" type="command" cbtype="simple">on_button_multi_dimensional_preprocessing_clicked</property>
+              <object class="ttk.Button" id="Button_multidimensional_processing">
+                <property cbtype="simple" name="command" type="command">on_button_multi_dimensional_preprocessing_clicked</property>
                 <property name="text" translatable="yes">Multi-dimensional Preprocessing</property>
                 <layout manager="grid">
                   <property name="column">1</property>
@@ -888,7 +888,7 @@ Original Data</property>
             </containerlayout>
             <child>
               <object class="ttk.Button" id="Button_feature_detect">
-                <property name="command" args="" cbtype="simple" type="command">on_button_feature_detect_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_feature_detect_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">featdetect3.png</property>
                 <property name="text" translatable="yes">  Feature
@@ -909,7 +909,7 @@ Original Data</property>
             </child>
             <child>
               <object class="ttk.Button" id="Button_ciu50">
-                <property name="command" args="" cbtype="simple" type="command">on_button_ciu50_clicked</property>
+                <property args="" cbtype="simple" name="command" type="command">on_button_ciu50_clicked</property>
                 <property name="compound">left</property>
                 <property name="image">CIU503.png</property>
                 <property name="text" translatable="yes">   CIU50</property>

@@ -10,7 +10,7 @@ b = [
 	
 resource_files = [
 ('UI/*', '.png'),
-('UI/*', '.ui'),
+('UI/*', 'UI'),
 ('tooltips.txt', '.'),
 ('C:\\Users\\caror\\AppData\\Roaming\\Python\\Python37\\site-packages\\PyQt5\\Qt5\\bin\\*','PyQt5\\Qt5\\bin')]
 
