@@ -6,9 +6,9 @@
 #define MyAppVersion "1.0"
 #define MyAppPublisher "University of Michigan"
 #define MyAppURL "https://github.com/RuotoloLab/CIUSuite2/releases/tag/v3.0.0"
-#define MyAppExeName "CIU2_Main.exe"
+#define MyAppExeName "CIU3_Main.exe"
 #define ReadmeName "CIUSuite3_Manual.pdf"
-#define IconName "CIUSuite2_win10.ico"
+#define IconName "CIUSuite3_win10.ico"
 #define AgilentExtName "MIDAC_CIU_Extractor"
 #define TWIMExName "TWIMExtract"
 #define SourceDir "C:\Users\caror\CIUSuite3"
@@ -45,16 +45,17 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 ; Final version includes both TWIMExtract and MIDAC Extractor
-Source: "{#SourceDir}\dist\CIU3_Main\CIU2_Main.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourceDir}\dist\CIU3_Main\CIU3_Main.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\dist\CIU3_Main\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#SourceDir}\{#ReadmeName}"; DestDir: "{app}"; Flags: isreadme ignoreversionSource: "{#SourceDir}\classification_template_example.csv"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#SourceDir}\CIUSuite2_win10.ico"; DestDir: "{app}"; DestName: "{#IconName}"; Flags: ignoreversion
+Source: "{#SourceDir}\CIUSuite3_win10.ico"; DestDir: "{app}"; DestName: "{#IconName}"; Flags: ignoreversion
 Source: "{#SourceDir}\README.txt"; DestDir: "{app}"; Flags: ignoreversion 
 ; Source: "C:\Users\dpolasky\Desktop\Data Tools and Src Code\_Agilent CIU Extractor\_SIMPLE_versionForDistribution\release\*"; DestDir: "{app}\Agilent_Extractor"; Flags: ignoreversion
 Source: "{#SourceDir}\Agilent_Extractor\*"; DestDir: "{app}\Agilent_Extractor"; Flags: ignoreversion
 ; Source: "C:\Users\dpolasky\PycharmProjects\CIUSuite2\TWIMExtract\*"; DestDir: "{app}\TWIMExtract"; Flags: ignoreversion recursesubdirs
 Source: "{#SourceDir}\TWIMExtract\*"; DestDir: "{app}\TWIMExtract"; Permissions: users-modify; Flags: ignoreversion recursesubdirs
 Source: "{#SourceDir}\CIU2_param_info.csv"; DestDir: "{commonappdata}\{#MyAppDirName}"; Permissions: users-modify; Flags: ignoreversion
+Source: "{#SourceDir}\FromRaw_to_CCS-CIU_template.csv"; DestDir: "{commonappdata}\{#MyAppDirName}"; Permissions: users-modify; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
