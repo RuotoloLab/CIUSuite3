@@ -98,7 +98,7 @@ def twimex_single_range(range_info, raw_files, save_dir, extractor_path):
     range_path = write_rangefile(range_info, temp_dir)
     dt_mode = 1
 
-    logger.info('Starting TWIMExtract. NOTE: Extraction may take some time! CIUSuite 2 will not respond until TWIMExtract is done!')
+    logger.info('Starting TWIMExtract. NOTE: Extraction may take some time! CIUSuite 3 will not respond until TWIMExtract is done!')
     raw_files_combined = ','.join(raw_files)
     run_extractor(extractor_path, raw_files_combined, temp_dir, mode_int=dt_mode, range_path=range_path, combine_bool=True)
 
