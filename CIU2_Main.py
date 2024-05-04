@@ -67,9 +67,6 @@ import matplotlib
 matplotlib.rcParams.update({'figure.autolayout': True})
 matplotlib.use('Agg')
 
-print(f'{guardpath}')
-print(f'root_dir = {root_dir}')
-
 # hard_params_file = os.path.join(program_data_dir, 'CIU2_param_info_new.csv')
 hard_params_file = os.path.join(program_data_dir, 'CIU2_param_info.csv')
 hard_twimextract_path = os.path.join(program_data_dir, 'TWIMExtract', 'jars', 'TWIMExtract.jar')
