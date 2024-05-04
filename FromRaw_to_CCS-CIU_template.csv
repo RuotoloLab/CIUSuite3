@@ -1,0 +1,7 @@
+#Waters .raw File,Range File Name,Range Rile Param: Initial m/z,Range Rile Param: Final m/z,Range Rile Param: Initial Retention Time,Range Rile Param: Final Retention Time,Range Rile Param: Initial Drift bin,Range Rile Param: Final Drift bin,Molecular Weight (approx is sufficient),charge,_raw.csv output location,calibration .dat file location (path),output location for calibrated file,TWIM cell length (m),wave velocity (m/s),wave height (V),drift region pressure (mbar),temperature (K)
+*(asterisk indicates the start of a new fingerprint),proteinname_chargestate,5625,5725,0,100,1,200,147000,26,C:\path_to_where-to-save-extraction_fromTWIMEXTract,C:\path_to_where is \IMSCal19\input\adh_ref_WV300-WH30.dat,C:\path_to_where_to_put_calibratedfiles,0.245,300,30,4.2,298
+C:\path_to_.raw file,,,,,,,,,,,,,,,,,
+C:\path_to_.raw file #2 (if fingerprint was made into several .raw files),,,,,,,,,,,,,,,,,
+*,ADH_z27,5900,6000,0,100,1,200,147000,27,C:\path_to_where-to-save-extraction_fromTWIMEXTract,,,,,,,
+C:\path_to_.raw file,,,,,,,,,,,,,,,,,
+C:\path_to_.raw file #2 (if fingerprint was made into several .raw files),,,,,,,,,,,,,,,,,
