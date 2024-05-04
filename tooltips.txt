@@ -22,5 +22,5 @@ Button_ciu50	Perform CIU50 analysis on the loaded files. NOTE: files must have F
 Button_build_classification	"Create a new classification scheme to compare several groups of CIU data. In this mode, you provide known ""standards"" that represent a particular type of CIU fingerprint (a ""class"" or group). "
 Button_classify_unknown	"Classify the loaded .ciu files in the table against a classification scheme. You will be prompted to select the classification scheme file (.clf) previously created with the ""Build classification"" button. "
 Button_about	Open the about file
-Button_help	Open the CIUSuite 2 manual (PDF)
+Button_help	Open the CIUSuite 3 manual (PDF)
 Button_Cutoff	"Cutoff signals if they fall below a percentage from the maximun signal intensity. Unable to undo with restore button. However, it keeps a copy of the original file. Also corrects Agilent decimal voltages (set cutoff to zero to only do this task)."
