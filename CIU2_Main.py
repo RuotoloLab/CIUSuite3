@@ -69,7 +69,7 @@ matplotlib.use('Agg')
 
 # hard_params_file = os.path.join(program_data_dir, 'CIU2_param_info_new.csv')
 hard_params_file = os.path.join(program_data_dir, 'CIU2_param_info.csv')
-hard_twimextract_path = os.path.join(program_data_dir, 'TWIMExtract', 'jars', 'TWIMExtract.jar')
+hard_twimextract_path = os.path.join(root_dir, 'TWIMExtract', 'jars', 'TWIMExtract.jar')
 hard_file_path_ui = os.path.join(root_dir, 'UI', 'CIUSuite3.ui')
 hard_short_ui = os.path.join(root_dir, 'UI', 'CIUSuite2_short.ui')
 hard_crop_ui = os.path.join(root_dir, 'UI', 'Crop_vals.ui')
@@ -1457,7 +1457,7 @@ class CIUSuite2(object):
                 self.load_raw_files(raw_files)
 
             elif vendor_type == 'Waters':
-                watersimport_app = Raw_Data_Import.WatersImportTypeUI(hard_watersimport_ui)
+                watersimport_app = Raw_Data_Import.WatersImportTypeUI(hard_watersimport_ui, hard_twimextract_path)
                 returncode = watersimport_app.run()
 
                 if returncode:

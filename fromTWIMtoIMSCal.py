@@ -237,7 +237,7 @@ def twim_to_ccs_main():
 
     ccs_replacing_dt(dt_to_ccs_replacedict)
 
-def twimextraction_forCIUSuitetwo(dict_of_params, ccs_mode = False):
+def twimextraction_forCIUSuitetwo(dict_of_params, extractor_path, ccs_mode = False):
     """
     Function to run the converter from dt to ccs (.raw to ccs cal fingerprint)
     :param dict_of_params: dict, a number as key (representing a fingerprint), parameter object as value
@@ -245,13 +245,14 @@ def twimextraction_forCIUSuitetwo(dict_of_params, ccs_mode = False):
     :return: path
     """
     print("Inputting raw into TWIMExtract")
+    print(extractor_path)
 
     batfile_str = ""
     dt_to_ccs_replacedict = {}
 
     #So TWIMExtract can be accessed by all users
     # extractor_path = os.path.join(os.environ['ALLUSERSPROFILE'], 'CIUSuite2', 'TWIMExtract', 'jars', 'TWIMExtract.jar')
-    extractor_path = os.path.join("C:\\", "TWIMExtract", "jars", "TWIMExtract.jar")
+    # extractor_path = os.path.join("C:\\", "TWIMExtract", "jars", "TWIMExtract.jar")
     for fingerprint in dict_of_params:
         # print(dict_of_params[fingerprint])
         raw_files = dict_of_params[fingerprint].rawfile

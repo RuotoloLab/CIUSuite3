@@ -319,9 +319,10 @@ class WatersImportTypeUI(object):
     """
     Simple dialog with several fields build with Pygubu for inputting crop values
     """
-    def __init__(self, ui_file):
+    def __init__(self, ui_file, twimextracjar):
         # Get crop input from the Crop_vals UI form
         self.builder = pygubu.Builder()
+        self.twimxtractexecutable = twimextracjar
 
         # load the UI file
         self.builder.add_from_file(ui_file)
@@ -332,6 +333,7 @@ class WatersImportTypeUI(object):
         self.mainwindow.protocol('WM_DELETE_WINDOW', self.on_close_window)
 
         self.return_code = None
+
 
         callbacks = {
             'on_button_waterdt_clicked': self.on_button_driftimextraction_clicked,
@@ -374,7 +376,7 @@ class WatersImportTypeUI(object):
 
         print(paramsdict)
 
-        finishbool = fromTWIMtoIMSCal.twimextraction_forCIUSuitetwo(paramsdict, ccs_mode=False)
+        finishbool = fromTWIMtoIMSCal.twimextraction_forCIUSuitetwo(paramsdict,self.twimxtractexecutable, ccs_mode=False)
 
         self.return_code = finishbool
 
@@ -394,7 +396,7 @@ class WatersImportTypeUI(object):
 
         print(paramsdict)
 
-        finishbool = fromTWIMtoIMSCal.twimextraction_forCIUSuitetwo(paramsdict, ccs_mode=True)
+        finishbool = fromTWIMtoIMSCal.twimextraction_forCIUSuitetwo(paramsdict, self.twimxtractexecutable, ccs_mode=True)
 
         self.return_code = finishbool
 
