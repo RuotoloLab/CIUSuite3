@@ -657,8 +657,10 @@ def run_lda_svc(x_data, label_data):
     :return: sklearn.svm.SVC classifier object and LDA object
     :rtype: SVC, LinearDiscriminantAnalysis
     """
-    
-    lda = LinearDiscriminantAnalysis(solver='svd', n_components=len(set(label_data)) - 1)
+    if len(set(label_data)) < 3:
+        lda = LinearDiscriminantAnalysis(solver='svd', n_components=2)
+    else:
+        lda = LinearDiscriminantAnalysis(solver='svd', n_components=3)
     lda.fit(x_data, label_data)
     train_lda = lda.transform(x_data)
 
