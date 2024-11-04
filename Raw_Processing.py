@@ -472,11 +472,16 @@ def check_axes_crop(analysis_obj_list):
         bin_spacings_dt = [analysis_obj.axes[0][x + 1] - analysis_obj.axes[0][x] for x in range(len(analysis_obj.axes[0]) - 1)]
         bin_spacings_cv = [analysis_obj.axes[1][x + 1] - analysis_obj.axes[1][x] for x in range(len(analysis_obj.axes[1]) - 1)]
 
+        print(bin_spacings_dt)
+        print(scipy.stats.mode(bin_spacings_dt)[0])
+        print(bin_spacings_cv)
+        print(scipy.stats.mode(bin_spacings_cv)[0])
+
         # using most common (mode) spacing in case of unevenly spaced data.
         if np.median(bin_spacings_dt) < min_dt_spacing:
-            min_dt_spacing = scipy.stats.mode(bin_spacings_dt)[0][0]
+            min_dt_spacing = scipy.stats.mode(bin_spacings_dt)[0]
         if np.median(bin_spacings_cv) < min_cv_spacing:
-            min_cv_spacing = scipy.stats.mode(bin_spacings_cv)[0][0]
+            min_cv_spacing = scipy.stats.mode(bin_spacings_cv)[0]
 
     crop_vals_all = [dt_start_max, dt_end_min, cv_start_max, cv_end_min, min_dt_spacing, min_cv_spacing]
     for val in crop_vals_all:
