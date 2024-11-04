@@ -1914,7 +1914,7 @@ def parse_classification_template(template_file):
             if line.lower().startswith('class'):
                 # special line for class labels - remember them
                 splits = line.rstrip('\n').split(',')
-                class_labels = [x for x in splits[1:] if x is not '']
+                class_labels = [x for x in splits[1:] if x != '']
 
             elif line.lower().startswith('subclass') or line.lower().startswith('state'):
                 # special line for subclass labels - remember them too
@@ -1922,7 +1922,7 @@ def parse_classification_template(template_file):
                 subclass_labels = splits[1:]
                 remove_labels = []
                 for index, subclass_label in enumerate(subclass_labels):
-                    if subclass_label is '':
+                    if subclass_label == '':
                         remove_labels.append(subclass_label)
                 for junk_label in remove_labels:
                     subclass_labels.remove(junk_label)
@@ -1933,7 +1933,7 @@ def parse_classification_template(template_file):
                 files = []
 
                 for folder in folderlist:
-                    if folder is not '':
+                    if folder != '':
                         try:
                             folder_files = [os.path.join(folder, x) for x in os.listdir(folder) if x.endswith('.ciu')]
                             files.extend(folder_files)
