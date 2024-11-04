@@ -353,11 +353,20 @@ def interpolate_axes(analysis_obj, new_axes):
     :rtype: CIUAnalysisObj
     """
     # interpolate the existing data, then reframe on new axes
+    print(analysis_obj.axes[0])
+    print(f"{len(analysis_obj.axes[0])} bins {type(analysis_obj.axes[0])}")
+    print(analysis_obj.axes[1])
+    print(f"{len(analysis_obj.axes[1])} CVs")
+    print(f"analysis_obj.ciu_data = {analysis_obj.ciu_data} {type(analysis_obj.ciu_data)}")
+
+
+
     interp_func = scipy.interpolate.RectBivariateSpline(analysis_obj.axes[0],
                                              analysis_obj.axes[1],
-                                             analysis_obj.ciu_data.T)
+                                             analysis_obj.ciu_data, kx=1, ky=1)
+    print(interp_func)
     interp_data = interp_func(new_axes[0], new_axes[1])
-    ciu_interp_data = np.asarray(interp_data).T
+    ciu_interp_data = np.asarray(interp_data)
 
     # save to analysis object and return
     analysis_obj.ciu_data = ciu_interp_data
@@ -472,10 +481,10 @@ def check_axes_crop(analysis_obj_list):
         bin_spacings_dt = [analysis_obj.axes[0][x + 1] - analysis_obj.axes[0][x] for x in range(len(analysis_obj.axes[0]) - 1)]
         bin_spacings_cv = [analysis_obj.axes[1][x + 1] - analysis_obj.axes[1][x] for x in range(len(analysis_obj.axes[1]) - 1)]
 
-        print(bin_spacings_dt)
-        print(scipy.stats.mode(bin_spacings_dt)[0])
-        print(bin_spacings_cv)
-        print(scipy.stats.mode(bin_spacings_cv)[0])
+        # print(bin_spacings_dt)
+        # print(scipy.stats.mode(bin_spacings_dt)[0])
+        # print(bin_spacings_cv)
+        # print(scipy.stats.mode(bin_spacings_cv)[0])
 
         # using most common (mode) spacing in case of unevenly spaced data.
         if np.median(bin_spacings_dt) < min_dt_spacing:
