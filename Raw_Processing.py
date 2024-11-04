@@ -353,7 +353,7 @@ def interpolate_axes(analysis_obj, new_axes):
     :rtype: CIUAnalysisObj
     """
     # interpolate the existing data, then reframe on new axes
-    interp_func = scipy.interpolate.interp2d(analysis_obj.axes[0],
+    interp_func = scipy.interpolate.RectBivariateSpline(analysis_obj.axes[0],
                                              analysis_obj.axes[1],
                                              analysis_obj.ciu_data.T)
     interp_data = interp_func(new_axes[0], new_axes[1])
