@@ -353,18 +353,18 @@ def interpolate_axes(analysis_obj, new_axes):
     :rtype: CIUAnalysisObj
     """
     # interpolate the existing data, then reframe on new axes
-    print(analysis_obj.axes[0])
-    print(f"{len(analysis_obj.axes[0])} bins {type(analysis_obj.axes[0])}")
-    print(analysis_obj.axes[1])
-    print(f"{len(analysis_obj.axes[1])} CVs")
-    print(f"analysis_obj.ciu_data = {analysis_obj.ciu_data} {type(analysis_obj.ciu_data)}")
+    # print(analysis_obj.axes[0])
+    # print(f"{len(analysis_obj.axes[0])} bins {type(analysis_obj.axes[0])}")
+    # print(analysis_obj.axes[1])
+    # print(f"{len(analysis_obj.axes[1])} CVs")
+    # print(f"analysis_obj.ciu_data = {analysis_obj.ciu_data} {type(analysis_obj.ciu_data)}")
 
 
 
     interp_func = scipy.interpolate.RectBivariateSpline(analysis_obj.axes[0],
                                              analysis_obj.axes[1],
                                              analysis_obj.ciu_data, kx=1, ky=1)
-    print(interp_func)
+    # print(interp_func)
     interp_data = interp_func(new_axes[0], new_axes[1])
     ciu_interp_data = np.asarray(interp_data)
 
