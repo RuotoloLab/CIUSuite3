@@ -13,9 +13,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Function to extract the mz and int dimension from a .d folder
-def extractor_mzim_fromframes(folder_path, mzmin, mzmax, outputfolder):
-
-    os.chdir(outputfolder)
+def extractor_koint_fromframes(folder_path, mzmin, mzmax, voltageval):
 
     # Create object to hold the raw data extracted (Attributes for no not editable by user)
     td = TimsData(folder_path, use_recalibrated_state=False,
@@ -52,17 +50,15 @@ def extractor_mzim_fromframes(folder_path, mzmin, mzmax, outputfolder):
                 ko_values = td.scanNumToOneOverK0(frame_id, np.array([scan_idx]))
                 ko_values_filtered = np.full(len(mz_filtered), ko_values[0])
 
-                data = pd.DataFrame({'ko': ko_values_filtered, 'intensity': intensities_filtered})
+                data = pd.DataFrame({'ko': ko_values_filtered, f'{voltageval}': intensities_filtered})
                 all_data.append(data)
-
     if all_data:
         combined_data = pd.concat(all_data, ignore_index=True)
-        grouped = combined_data.groupby(['ko'])['intensity'].sum().reset_index()
-        outputname = os.path.basename(os.path.dirname(folder_path))
-        print(outputname)
-        # grouped.to_csv(outputname, index=False)
+        grouped = combined_data.groupby(['ko'])[f'{voltageval}'].sum().reset_index()
+        return grouped
     else:
         print("No data to process.")
+
 
 # Function to extract voltage used in .d folder
 def extract_voltage_from_method_file(folder_path):
@@ -112,9 +108,11 @@ def main(mz_min, mz_max, mode):
     else:
         # Select folder that contains all the .d files of interest
         ciudic = filedialog.askdirectory(title="Choose Folder with .d files to make a fingerprint CIU")
+        masterjoindf = pd.DataFrame()
 
         # What are the contents of the main folder
         drawdir = [f for f in os.listdir(ciudic)]
+
 
         # Make sure each item in the main folder are folders and end in .d
         for diritem in drawdir:
@@ -127,11 +125,19 @@ def main(mz_min, mz_max, mode):
                 cv_val = extract_voltage_from_method_file(diritempath)
                 print(f"Voltage = {cv_val}")
 
-                # Extract mzvals
-                extractor_mzim_fromframes(diritempath, mz_min, mz_max, ciudic)
+                # Extract IM and int vals
+                koint_val = extractor_koint_fromframes(diritempath, mz_min, mz_max, cv_val)
+                # print(koint_val)
+                kointdftojoin = koint_val.set_index("ko", drop=True)
+                masterjoindf = pd.concat([kointdftojoin, masterjoindf], axis=1)
 
+        os.chdir(ciudic)
 
+        outputname = os.path.basename(ciudic)
+        print(outputname)
 
+        # print(masterjoindf)
+        masterjoindf.to_csv(outputname + "_raw.csv")
 
 
 
