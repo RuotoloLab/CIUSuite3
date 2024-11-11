@@ -660,7 +660,7 @@ class BreukerImportTypeUI(object):
         # Obtaining entry values for single folder extractions
         minimunmz = self.builder.get_object("minmz_val").get()
         maxmz = self.builder.get_object("maxmz_val").get()
-        ionmz = self.builder.get_object("ionz_val").get()
+        ionmz = self.builder.get_object("ionmz_val").get()
         ioncharge = self.builder.get_object("ioncharge_val").get()
         print(minimunmz)
         print(maxmz)
