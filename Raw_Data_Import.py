@@ -585,6 +585,111 @@ class TWIMExRangeUI(tkinter.Toplevel):
         self.quit()
         self.destroy()
 
+# Winter 2024 Update
+
+class BreukerImportTypeUI(object):
+    """
+    Simple dialog with several fields build with Pygubu for inputting crop values
+    """
+    def __init__(self, ui_file, mainpythonfile):
+        # Get crop input from the Crop_vals UI form
+        self.builder = pygubu.Builder()
+        self.breukerminapy = mainpythonfile
+
+        # load the UI file
+        self.builder.add_from_file(ui_file)
+        # create widget using provided root (Tk) window
+        self.mainwindow = self.builder.get_object('breukerimport')
+
+        # Connect Delete event to a toplevel window
+        self.mainwindow.protocol('WM_DELETE_WINDOW', self.on_close_window)
+
+        self.return_code = None
+
+
+
+
+        callbacks = {
+            'on_checkbox_batchmode_clicked': self.on_checkbox_batchmode_clicked,
+            'on_checkbox_singlefolder_clicked': self.on_checkbox_singlefolder_clicked,
+        }
+        self.builder.connect_callbacks(callbacks)
+
+
+
+
+
+
+
+    def run(self):
+        """
+        Run the UI and return the output values
+        :return: List of crop values [dt low, dt high, cv low, cv high]
+        """
+        self.builder.get_object('breukerimport').grab_set()     # prevent users from clicking other stuff while crop is active
+        self.mainwindow.mainloop()
+        self.builder.get_object('breukerimport').grab_release()
+        return self.return_code
+
+    def on_checkbox_batchmode_clicked(self):
+        """
+        Runs TWIMExtraction using the TWIMExtract included in CIUSuite2 and then runs IMSCal19
+        (supposely the same as the standalone version - done on March, 2021)
+        """
+        param_file = filedialog.askopenfilename(title='File with Parameters for TWIMExtract and IMSCal19',
+                                                filetypes=[('CSV File', '.csv')])
+
+        paramsdict = IMSCal19Adapt_Parameter_Parser.parse_param(param_file)
+
+        print(paramsdict)
+
+        finishbool = fromTWIMtoIMSCal.twimextraction_forCIUSuitetwo(paramsdict, self.twimxtractexecutable,
+                                                                    ccs_mode=True)
+
+        self.return_code = finishbool
+
+        if self.return_code:
+            self.mainwindow.destroy()
+
+    def on_checkbox_singlefolder_clicked(self):
+        """
+        Runs TWIMExtraction using the TWIMExtract included in CIUSuite2 and then runs IMSCal19
+        (supposely the same as the standalone version - done on March, 2021)
+        """
+
+        # Obtaining entry values for single folder extractions
+        minimunmz = self.builder.get_object("minmz_val").get()
+        maxmz = self.builder.get_object("maxmz_val").get()
+        ionmz = self.builder.get_object("ionz_val").get()
+        ioncharge = self.builder.get_object("ioncharge_val").get()
+        print(minimunmz)
+        print(maxmz)
+        print(ionmz)
+        print(ioncharge)
+
+
+        # paramsdict = IMSCal19Adapt_Parameter_Parser.parse_param(param_file)
+        #
+        # print(paramsdict)
+        #
+        # finishbool = fromTWIMtoIMSCal.twimextraction_forCIUSuitetwo(paramsdict, self.twimxtractexecutable,
+        #                                                             ccs_mode=True)
+        #
+        # self.return_code = finishbool
+        #
+        # if self.return_code:
+        #     self.mainwindow.destroy()
+
+
+    def on_close_window(self):
+        """
+        Quit the mainwindow to stop the mainloop and get it to return
+        the crop values, then destroy it to remove it from screen.
+        :return: the provided crop values, or None if none were provided
+        """
+        self.mainwindow.quit()
+        self.mainwindow.destroy()
+
 
 if __name__ == '__main__':
     # testing

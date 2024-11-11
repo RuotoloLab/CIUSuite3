@@ -68,12 +68,14 @@ matplotlib.rcParams.update({'figure.autolayout': True})
 matplotlib.use('Agg')
 
 # hard_params_file = os.path.join(program_data_dir, 'CIU2_param_info_new.csv')
-hard_params_file = os.path.join(program_data_dir, 'CIU2_param_info.csv')
+hard_params_file = os.path.join(program_data_dir, 'CIU3_param_info.csv')
 hard_twimextract_path = os.path.join(root_dir, 'TWIMExtract', 'jars', 'TWIMExtract.jar')
 hard_file_path_ui = os.path.join(root_dir, 'UI', 'CIUSuite3.ui')
 hard_short_ui = os.path.join(root_dir, 'UI', 'CIUSuite2_short.ui')
 hard_crop_ui = os.path.join(root_dir, 'UI', 'Crop_vals.ui')
 hard_watersimport_ui = os.path.join(root_dir, 'UI', 'WatersImport_type.ui')
+hard_breukerimport_ui = os.path.join(root_dir, 'UI', 'BreukerExtractor.ui')
+hard_breukermain_path = os.path.join(root_dir, 'Breuker_Extractor', 'Breuker-RawExtractor_Main.py')
 hard_cutoffcrop = os.path.join(root_dir, 'UI', 'Cutoff_crop.ui')
 hard_agilent_ext_path = os.path.join(root_dir, os.path.join('Agilent_Extractor', 'MIDAC_CIU_Extractor.exe'))
 hard_tooltips_file = os.path.join(root_dir, 'tooltips.txt')
@@ -1485,7 +1487,12 @@ class CIUSuite2(object):
                 #                 self.load_raw_files(raw_files)
                 #             else:
                 #                 logger.error('No raw files found! Check the chosen save directory')
+            elif vendor_type == 'Breuker':
+                breukerimport_app = Raw_Data_Import.BreukerImportTypeUI(hard_breukerimport_ui, hard_breukermain_path)
+                returncode = breukerimport_app.run()
 
+                if returncode:
+                    self.progress_done()
             else:
                 logger.error('Invalid vendor, no files loaded')
 

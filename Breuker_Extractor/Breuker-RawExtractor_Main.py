@@ -13,10 +13,19 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Function to extract the mz and int dimension from a .d folder
-def extractor_koint_fromframes(folder_path, mzmin, mzmax, voltageval):
+def extractor_koint_fromframes(folder_path, mzmin, mzmax, voltageval, userecalstate = False):
+    """
+
+    @param folder_path:
+    @param mzmin:
+    @param mzmax:
+    @param voltageval:
+    @param userecalstate:
+    @return:
+    """
 
     # Create object to hold the raw data extracted (Attributes for no not editable by user)
-    td = TimsData(folder_path, use_recalibrated_state=False,
+    td = TimsData(folder_path, use_recalibrated_state=userecalstate,
                   pressure_compensation_strategy=PressureCompensationStrategy.AnalyisGlobalPressureCompensation)
     conn = td.conn
 
@@ -94,15 +103,18 @@ def extract_voltage_from_method_file(folder_path):
         return None
 
 
-def main(mz_min, mz_max, mode):
+def main(mz_min, mz_max, ccs_conversion = None, processingmode = None):
     """
-    Function to run the Breuker Extractor
-    @param mode: bool, preparing for when all voltages are in one .d file
+    Running Extraction for Breuker files
+    @param mz_min: float, Minimun m/z value for extraction
+    @param mz_max: float, Maximun m/z value for extraction
+    @param processingmode: bool, Single folder with .d files or several folders
+    @param ccs_conversion: ls, values = [charge, ion m/z value]
     @return: void
     """
 
 
-    if mode == "Batch":
+    if processingmode == "Batch":
         pass
         # For a mode where several folder need to be read or when a .d file contains all voltages
     else:
@@ -129,9 +141,11 @@ def main(mz_min, mz_max, mode):
                 # TODO: Add the option for CCS calibration
                 koint_val = extractor_koint_fromframes(diritempath, mz_min, mz_max, cv_val)
 
-
                 # print(koint_val)
                 kointdftojoin = koint_val.set_index("ko", drop=True)
+
+
+
                 masterjoindf = pd.concat([kointdftojoin, masterjoindf], axis=1)
 
         os.chdir(ciudic)
@@ -150,17 +164,40 @@ def main(mz_min, mz_max, mode):
         str_sortedcol_vals = [str(x) for x in columnvals]
         masterjoindf = masterjoindf.reindex(str_sortedcol_vals, axis=1)
 
-        # Rename Index
-        masterjoindf.index.names = ['Mobility (1/K0)']
+        # Rename Mobility Units
+        if ccs_conversion:
+            masterjoindf.index.names = ['CCS (A^2)']
 
-        # print(masterjoindf)
+            # Extract extra parameters for CCS Conversion
+            charge = ccs_conversion[0]
+            ionmz_value = ccs_conversion[1]
 
-        # print(masterjoindf)
-        masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}" +"_raw.csv")
+            # Reset index in data frame to perfomr the CCS Conversion only in this last data frame instead of back when in each .d file
+            masterjoindf = masterjoindf.reset_index()
+
+            masterjoindf['CCS (A^2)'] = masterjoindf['CCS (A^2)'].apply(lambda x: oneOverK0ToCCSforMz(x, charge, ionmz_value))
+
+        else:
+            masterjoindf.index.names = ['Mobility (1/K0)']
+
+        # Replace Nan with zeroes
+        masterjoindf = masterjoindf.fillna(0)
+
+        # Name file based on mobility status
+        if ccs_conversion:
+            masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}_ccscal" +"_raw.csv", index = False)
+        else:
+            masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}" +"_raw.csv")
 
 
 
 
 if __name__ == '__main__':
 
-    main(0, 10000, mode = False)
+    minmz = 4444
+    maxmz = 4455
+    ccs_conversionls = [15, 4450]
+
+
+    main(4444, 4455)
+
