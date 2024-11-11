@@ -97,7 +97,7 @@ def extract_voltage_from_method_file(folder_path):
 def main(mz_min, mz_max, mode):
     """
     Function to run the Breuker Extractor
-    @param mode: bool, preparing when all voltages are in one .d file
+    @param mode: bool, preparing for when all voltages are in one .d file
     @return: void
     """
 
@@ -126,18 +126,37 @@ def main(mz_min, mz_max, mode):
                 print(f"Voltage = {cv_val}")
 
                 # Extract IM and int vals
+                # TODO: Add the option for CCS calibration
                 koint_val = extractor_koint_fromframes(diritempath, mz_min, mz_max, cv_val)
+
+
                 # print(koint_val)
                 kointdftojoin = koint_val.set_index("ko", drop=True)
                 masterjoindf = pd.concat([kointdftojoin, masterjoindf], axis=1)
 
         os.chdir(ciudic)
 
+        # How to call the outputifle
         outputname = os.path.basename(ciudic)
         print(outputname)
 
+        # Extract indeces
+        columns_lsofstrs = masterjoindf.columns
+        # print(columns_lsofstrs)
+        # Turn values to float to be sorted
+        columnvals = [float(x) for x in list(columns_lsofstrs)]
+        columnvals.sort()
+        # Turn sorted values back to strings otherwise they won't get matched in the dataframe
+        str_sortedcol_vals = [str(x) for x in columnvals]
+        masterjoindf = masterjoindf.reindex(str_sortedcol_vals, axis=1)
+
+        # Rename Index
+        masterjoindf.index.names = ['Mobility (1/K0)']
+
         # print(masterjoindf)
-        masterjoindf.to_csv(outputname + "_raw.csv")
+
+        # print(masterjoindf)
+        masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}" +"_raw.csv")
 
 
 
