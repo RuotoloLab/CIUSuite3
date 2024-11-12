@@ -22,7 +22,9 @@ import logging
 import pygubu
 import IMSCal19Adapt_Parameter_Parser
 import fromTWIMtoIMSCal
-import Breuker_Extractor
+
+# Nice way to import...however everything breaks down when trying to import the .dll library
+# from Breuker_Extractor.BreukerExtractorMain import BreukerExtractmain
 
 
 
@@ -664,10 +666,11 @@ class BreukerImportTypeUI(object):
         ionmz = self.builder.get_object("ionmz_val").get()
         ioncharge = self.builder.get_object("ioncharge_val").get()
 
+
         if ionmz == 0 or ioncharge == 0:
-            finishbool = Breuker_Extractor.main(minimunmz, maxmz)
+            finishbool = BreukerExtractmain(minimunmz, maxmz)
         else:
-            finishbool = Breuker_Extractor.main(minimunmz, maxmz, [ionmz, ioncharge])
+            finishbool = BreukerExtractmain(minimunmz, maxmz, [ionmz, ioncharge])
 
         self.return_code = finishbool
 
