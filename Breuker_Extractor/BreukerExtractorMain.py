@@ -247,8 +247,11 @@ def main():
                 mz_arg = float(mz_arg)
                 charge_arg = int(charge_arg)
 
-                print("CCS Conversion will be done")
-                BreukerExtractmain(float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg])
+                if mz_arg == 0.0 or charge_arg == 0:
+                    BreukerExtractmain(float(minmz_arg), float(maxmz_arg))
+                else:
+                    print("CCS Conversion will be done")
+                    BreukerExtractmain(float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg])
             except ValueError:
                 BreukerExtractmain(float(minmz_arg), float(maxmz_arg))
 
@@ -257,8 +260,11 @@ def main():
             try:
                 mz_arg = float(mz_arg)
                 charge_arg = int(charge_arg)
-                print("CCS Conversion will be done")
-                BreukerExtractmain(float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg], batchvalue)
+                if mz_arg == 0.0 or charge_arg == 0:
+                    BreukerExtractmain(float(minmz_arg), float(maxmz_arg))
+                else:
+                    print("CCS Conversion will be done")
+                    BreukerExtractmain(float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg], batchvalue)
             except ValueError:
                 BreukerExtractmain(float(minmz_arg), float(maxmz_arg), False, batchvalue)
         else:
