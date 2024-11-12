@@ -667,7 +667,9 @@ class BreukerImportTypeUI(object):
         ionmz = self.builder.get_object("ionmz_val").get()
         ioncharge = self.builder.get_object("ioncharge_val").get()
 
-        args = f"{self.breukerextractorexe} {minimunmz} {maxmz} {ionmz,ioncharge} {False}"
+        args = f"{self.breukerextractorexe} {minimunmz} {maxmz} {False} {False}"
+
+        print(args)
         completed_proc = subprocess.run(args)
         print(f'\n{completed_proc}')
         # if ionmz == 0 or ioncharge == 0:

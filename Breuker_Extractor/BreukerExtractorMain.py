@@ -1,4 +1,6 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 """
 Author: Carolina Rojas Ramirez
 Date: Nov 4th, 2024
@@ -17,9 +19,11 @@ if getattr(sys, 'frozen', False):
     bundle_dir = sys._MEIPASS
     dll_path = os.path.join(bundle_dir, 'timsdata.dll')
     os.add_dll_directory(os.path.dirname(dll_path))
+    print(dll_path)
 else:
     os.add_dll_directory(os.getcwd())
     dll_path = os.path.join(os.getcwd(), 'timsdata.dll')
+    print(dll_path)
 
 # Function to extract the mz and int dimension from a .d folder
 def extractor_koint_fromframes(folder_path, mzmin, mzmax, voltageval, userecalstate = 0):
@@ -209,6 +213,8 @@ def main():
     @return: void
     """
 
+    # BreukerExtractmain(4444, 4455)
+
     #Checking Python version
     majorversion = sys.version_info.major
     minorversion = sys.version_info.minor
@@ -223,13 +229,10 @@ def main():
         # Example adding a second attribute
         systemarguments = sys.argv
 
-        minmz_arg = systemarguments[1]
-        maxmz_arg = systemarguments[2]
+        minmz_arg = float(systemarguments[1])
+        maxmz_arg = float(systemarguments[2])
         ccsconversion = systemarguments[3]
         batchbool = systemarguments[4]
-
-
-
 
 
         if ccsconversion == 'True' and batchbool == "True":
@@ -241,10 +244,6 @@ def main():
         else:
             print("Single Folder")
             BreukerExtractmain(minmz_arg, maxmz_arg)
-
-
-
-
 
 if __name__ == '__main__':
 
