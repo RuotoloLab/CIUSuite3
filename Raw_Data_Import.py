@@ -665,7 +665,7 @@ class BreukerImportTypeUI(object):
         ioncharge = self.builder.get_object("ioncharge_val").get()
 
         if ionmz == 0 or ioncharge == 0:
-            finishbool = Breuker_Extractor.main(float(minimunmz), float(maxmz))
+            finishbool = Breuker_Extractor.main(minimunmz, maxmz)
         else:
             finishbool = Breuker_Extractor.main(minimunmz, maxmz, [ionmz, ioncharge])
 
