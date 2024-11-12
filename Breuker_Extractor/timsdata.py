@@ -10,29 +10,35 @@ from ctypes import *
 from pathlib import Path
 from enum import Enum
 
-if getattr(sys, 'frozen', False):
-    # Running in a bundle
-    bundle_dir = sys._MEIPASS
-    dll_path = os.path.join(bundle_dir, 'timsdata.dll')
-    os.add_dll_directory(os.path.dirname(dll_path))
-else:
-    # Running in normal Python environment
-    os.add_dll_directory(os.getcwd())
-    dll_path = os.path.join(os.getcwd(), 'timsdata.dll')
-    
+# if getattr(sys, 'frozen', False):
+#     # Running in a bundle
+#     bundle_dir = sys._MEIPASS
+#     dll_path = os.path.join(bundle_dir, 'timsdata.dll')
+#     os.add_dll_directory(os.path.dirname(dll_path))
+# else:
+#     # Running in normal Python environment
+#     os.add_dll_directory(os.getcwd())
+#     dll_path = os.path.join(os.getcwd(), 'timsdata.dll')
+#
+# if sys.platform[:5] == "win32":
+#     libname = "timsdata.dll"
+# elif sys.platform[:5] == "linux":
+#     libname = "libtimsdata.so"
+# else:
+#     raise Exception("Unsupported platform.")
+#
+# path = Path(Path(__file__).parent.absolute(), 'libs', libname).as_posix()
+# if os.path.exists(path):
+#     dll = cdll.LoadLibrary(path)
+# else:
+#     dll = cdll.LoadLibrary(libname)
 
-if sys.platform[:5] == "win32":
-    libname = "timsdata.dll"
-elif sys.platform[:5] == "linux":
-    libname = "libtimsdata.so"
-else:
-    raise Exception("Unsupported platform.")
 
-path = Path(Path(__file__).parent.absolute(), 'libs', libname).as_posix()
-if os.path.exists(path):
-    dll = cdll.LoadLibrary(path)
-else:
-    dll = cdll.LoadLibrary(libname)
+#Change necessary now that Breuker_Extractor is acting as its own Python module
+dll_path = os.path.join(os.getcwd(), 'Breuker_extractor', 'timsdata.dll')
+dll = cdll.LoadLibrary(dll_path)
+
+
     
 dll.tims_open_v2.argtypes = [ c_char_p, c_uint32, c_uint32 ]
 dll.tims_open_v2.restype = c_uint64

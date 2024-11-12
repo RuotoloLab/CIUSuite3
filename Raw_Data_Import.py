@@ -22,6 +22,9 @@ import logging
 import pygubu
 import IMSCal19Adapt_Parameter_Parser
 import fromTWIMtoIMSCal
+import Breuker_Extractor
+
+
 
 logger = logging.getLogger('main')
 
@@ -592,6 +595,7 @@ class BreukerImportTypeUI(object):
     Simple dialog with several fields build with Pygubu for inputting crop values
     """
     def __init__(self, ui_file, mainpythonfile):
+
         # Get crop input from the Crop_vals UI form
         self.builder = pygubu.Builder()
         self.breukerminapy = mainpythonfile
@@ -636,20 +640,16 @@ class BreukerImportTypeUI(object):
         Runs TWIMExtraction using the TWIMExtract included in CIUSuite2 and then runs IMSCal19
         (supposely the same as the standalone version - done on March, 2021)
         """
-        param_file = filedialog.askopenfilename(title='File with Parameters for TWIMExtract and IMSCal19',
-                                                filetypes=[('CSV File', '.csv')])
 
-        paramsdict = IMSCal19Adapt_Parameter_Parser.parse_param(param_file)
+        # Obtaining entry values for single folder extractions
+        minimunmz = self.builder.get_object("minmz_val").get()
+        maxmz = self.builder.get_object("maxmz_val").get()
 
-        print(paramsdict)
-
-        finishbool = fromTWIMtoIMSCal.twimextraction_forCIUSuitetwo(paramsdict, self.twimxtractexecutable,
-                                                                    ccs_mode=True)
-
-        self.return_code = finishbool
-
-        if self.return_code:
-            self.mainwindow.destroy()
+        #
+        # self.return_code = finishbool
+        #
+        # if self.return_code:
+        #     self.mainwindow.destroy()
 
     def on_checkbox_singlefolder_clicked(self):
         """
@@ -657,28 +657,22 @@ class BreukerImportTypeUI(object):
         (supposely the same as the standalone version - done on March, 2021)
         """
 
+
         # Obtaining entry values for single folder extractions
         minimunmz = self.builder.get_object("minmz_val").get()
         maxmz = self.builder.get_object("maxmz_val").get()
         ionmz = self.builder.get_object("ionmz_val").get()
         ioncharge = self.builder.get_object("ioncharge_val").get()
-        print(minimunmz)
-        print(maxmz)
-        print(ionmz)
-        print(ioncharge)
 
+        if ionmz == 0 or ioncharge == 0:
+            finishbool = Breuker_Extractor.main(float(minimunmz), float(maxmz))
+        else:
+            finishbool = Breuker_Extractor.main(minimunmz, maxmz, [ionmz, ioncharge])
 
-        # paramsdict = IMSCal19Adapt_Parameter_Parser.parse_param(param_file)
-        #
-        # print(paramsdict)
-        #
-        # finishbool = fromTWIMtoIMSCal.twimextraction_forCIUSuitetwo(paramsdict, self.twimxtractexecutable,
-        #                                                             ccs_mode=True)
-        #
-        # self.return_code = finishbool
-        #
-        # if self.return_code:
-        #     self.mainwindow.destroy()
+        self.return_code = finishbool
+
+        if self.return_code:
+            self.mainwindow.destroy()
 
 
     def on_close_window(self):

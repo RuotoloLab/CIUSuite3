@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Author: Carolina Rojas Ramirez
 Date: Nov 4th, 2024
@@ -5,7 +6,8 @@ Script to extract Raw Data from Breuker .d files
 With some code from tdfextractor by Michael Armbruster
 """
 
-from timsdata import *
+# Needed once the Breuker_Extractor folder contained and __init__.py file
+from . import timsdata
 from tkinter import filedialog
 import os
 import re
@@ -25,8 +27,8 @@ def extractor_koint_fromframes(folder_path, mzmin, mzmax, voltageval, userecalst
     """
 
     # Create object to hold the raw data extracted (Attributes for no not editable by user)
-    td = TimsData(folder_path, use_recalibrated_state=userecalstate,
-                  pressure_compensation_strategy=PressureCompensationStrategy.AnalyisGlobalPressureCompensation)
+    td = timsdata.TimsData(folder_path, use_recalibrated_state=userecalstate,
+                  pressure_compensation_strategy=timsdata.PressureCompensationStrategy.AnalyisGlobalPressureCompensation)
     conn = td.conn
 
     # Extract number of frames
@@ -110,7 +112,7 @@ def main(mz_min, mz_max, ccs_conversion = None, processingmode = None):
     @param mz_max: float, Maximun m/z value for extraction
     @param processingmode: bool, Single folder with .d files or several folders
     @param ccs_conversion: ls, values = [charge, ion m/z value]
-    @return: void
+    @return: True, for GUI handeling
     """
 
 
@@ -169,8 +171,8 @@ def main(mz_min, mz_max, ccs_conversion = None, processingmode = None):
             masterjoindf.index.names = ['CCS (A^2)']
 
             # Extract extra parameters for CCS Conversion
-            charge = ccs_conversion[0]
-            ionmz_value = ccs_conversion[1]
+            charge = ccs_conversion[1]
+            ionmz_value = ccs_conversion[0]
 
             # Reset index in data frame to perfomr the CCS Conversion only in this last data frame instead of back when in each .d file
             masterjoindf = masterjoindf.reset_index()
@@ -189,15 +191,16 @@ def main(mz_min, mz_max, ccs_conversion = None, processingmode = None):
         else:
             masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}" +"_raw.csv")
 
+    # Returning value to close the GUI and go back to main CIUSUite3 GUI
+    return True
 
 
-
-if __name__ == '__main__':
-
-    minmz = 4444
-    maxmz = 4455
-    ccs_conversionls = [15, 4450]
-
-
-    main(4444, 4455)
+# if __name__ == '__main__':
+#
+#     minmz = 4444
+#     maxmz = 4455
+#     ccs_conversionls = [15, 4450]
+#
+#
+#     main(4444, 4455)
 
