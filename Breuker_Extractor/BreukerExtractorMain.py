@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
 """
 Author: Carolina Rojas Ramirez
 Date: Nov 4th, 2024
@@ -117,8 +116,80 @@ def extract_voltage_from_method_file(folder_path):
         print(f"IMS_TunnelVoltage_Delta_6 not found in the method file: {method_file}")
         return None
 
+def singlefoldedextraction(ciudir, mz_min, mz_max, ccs_conversion = None):
+    # Select folder that contains all the .d files of interest
 
-def BreukerExtractmain(mz_min, mz_max, ccs_conversion = None, processingmode = None):
+    masterjoindf = pd.DataFrame()
+
+    # What are the contents of the main folder
+    drawdir = [f for f in os.listdir(ciudir)]
+
+    # Make sure each item in the main folder are folders and end in .d
+    for diritem in drawdir:
+        diritempath = os.path.join(ciudir, diritem)
+        if diritem.endswith(".d") and os.path.isdir(diritempath):
+            print(f"Extracting data from {diritem}")
+
+            # Extract voltage
+            cv_val = extract_voltage_from_method_file(diritempath)
+            print(f"Voltage = {cv_val}")
+
+            # Extract IM and int vals
+            # TODO: Add the option for CCS calibration
+            koint_val = extractor_koint_fromframes(diritempath, mz_min, mz_max, cv_val)
+
+            # print(koint_val)
+            kointdftojoin = koint_val.set_index("ko", drop=True)
+
+            masterjoindf = pd.concat([kointdftojoin, masterjoindf], axis=1)
+
+    os.chdir(ciudir)
+
+    # How to call the outputifle
+    outputname = os.path.basename(ciudir)
+    print(outputname)
+
+    # Extract indeces
+    columns_lsofstrs = masterjoindf.columns
+    # print(columns_lsofstrs)
+    # Turn values to float to be sorted
+    columnvals = [float(x) for x in list(columns_lsofstrs)]
+    columnvals.sort()
+    # Turn sorted values back to strings otherwise they won't get matched in the dataframe
+    str_sortedcol_vals = [str(x) for x in columnvals]
+    masterjoindf = masterjoindf.reindex(str_sortedcol_vals, axis=1)
+
+    # Rename Mobility Units
+    if ccs_conversion:
+        masterjoindf.index.names = ['CCS (A^2)']
+
+        # Extract extra parameters for CCS Conversion
+        charge = ccs_conversion[1]
+        ionmz_value = ccs_conversion[0]
+
+        # Reset index in data frame to perfomr the CCS Conversion only in this last data frame instead of back when in each .d file
+        masterjoindf = masterjoindf.reset_index()
+
+        masterjoindf['CCS (A^2)'] = masterjoindf['CCS (A^2)'].apply(
+            lambda x: oneOverK0ToCCSforMz(x, charge, ionmz_value))
+
+    else:
+        masterjoindf.index.names = ['Mobility (1/K0)']
+
+    # Replace Nan with zeroes
+    masterjoindf = masterjoindf.fillna(0)
+
+    # Name file based on mobility status
+    if ccs_conversion:
+        masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}_ccscal" + "_raw.csv", index=False)
+    else:
+        masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}" + "_raw.csv")
+
+
+# # Returning value to close the GUI and go back to main CIUSUite3 GUI
+# return True
+
+def BreukerExtractmain(mz_minvl, mz_maxvl, ccs_conversionvl = None, processingmode = None):
     """
     Running Extraction for Breuker files
     @param mz_min: float, Minimun m/z value for extraction
@@ -130,82 +201,13 @@ def BreukerExtractmain(mz_min, mz_max, ccs_conversion = None, processingmode = N
 
 
     if processingmode == "Batch":
-        pass
+        print("Batch Mode coming soon")
         # For a mode where several folder need to be read or when a .d file contains all voltages
     else:
-        # Select folder that contains all the .d files of interest
-        ciudic = filedialog.askdirectory(title="Choose Folder with .d files to make a fingerprint CIU")
-        masterjoindf = pd.DataFrame()
+        fingerprintdir = filedialog.askdirectory(title="Choose Folder with .d files to make a fingerprint CIU")
 
-        # What are the contents of the main folder
-        drawdir = [f for f in os.listdir(ciudic)]
+        singlefoldedextraction(fingerprintdir, mz_minvl, mz_maxvl, ccs_conversionvl)
 
-
-        # Make sure each item in the main folder are folders and end in .d
-        for diritem in drawdir:
-            diritempath = os.path.join(ciudic, diritem)
-            if diritem.endswith(".d") and os.path.isdir(diritempath ):
-
-                print(f"Extracting data from {diritem}")
-
-                # Extract voltage
-                cv_val = extract_voltage_from_method_file(diritempath)
-                print(f"Voltage = {cv_val}")
-
-                # Extract IM and int vals
-                # TODO: Add the option for CCS calibration
-                koint_val = extractor_koint_fromframes(diritempath, mz_min, mz_max, cv_val)
-
-                # print(koint_val)
-                kointdftojoin = koint_val.set_index("ko", drop=True)
-
-
-
-                masterjoindf = pd.concat([kointdftojoin, masterjoindf], axis=1)
-
-        os.chdir(ciudic)
-
-        # How to call the outputifle
-        outputname = os.path.basename(ciudic)
-        print(outputname)
-
-        # Extract indeces
-        columns_lsofstrs = masterjoindf.columns
-        # print(columns_lsofstrs)
-        # Turn values to float to be sorted
-        columnvals = [float(x) for x in list(columns_lsofstrs)]
-        columnvals.sort()
-        # Turn sorted values back to strings otherwise they won't get matched in the dataframe
-        str_sortedcol_vals = [str(x) for x in columnvals]
-        masterjoindf = masterjoindf.reindex(str_sortedcol_vals, axis=1)
-
-        # Rename Mobility Units
-        if ccs_conversion:
-            masterjoindf.index.names = ['CCS (A^2)']
-
-            # Extract extra parameters for CCS Conversion
-            charge = ccs_conversion[1]
-            ionmz_value = ccs_conversion[0]
-
-            # Reset index in data frame to perfomr the CCS Conversion only in this last data frame instead of back when in each .d file
-            masterjoindf = masterjoindf.reset_index()
-
-            masterjoindf['CCS (A^2)'] = masterjoindf['CCS (A^2)'].apply(lambda x: oneOverK0ToCCSforMz(x, charge, ionmz_value))
-
-        else:
-            masterjoindf.index.names = ['Mobility (1/K0)']
-
-        # Replace Nan with zeroes
-        masterjoindf = masterjoindf.fillna(0)
-
-        # Name file based on mobility status
-        if ccs_conversion:
-            masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}_ccscal" +"_raw.csv", index = False)
-        else:
-            masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}" +"_raw.csv")
-
-    # # Returning value to close the GUI and go back to main CIUSUite3 GUI
-    # return True
 
 def main():
     """
@@ -229,21 +231,38 @@ def main():
         # Example adding a second attribute
         systemarguments = sys.argv
 
-        minmz_arg = float(systemarguments[1])
-        maxmz_arg = float(systemarguments[2])
-        ccsconversion = systemarguments[3]
-        batchbool = systemarguments[4]
+        minmz_arg = systemarguments[1]
+        maxmz_arg = systemarguments[2]
+        mz_arg = systemarguments[3]
+        charge_arg = systemarguments[4]
+        batchvalue = systemarguments[5]
+
+        print(systemarguments)
 
 
-        if ccsconversion == 'True' and batchbool == "True":
-            BreukerExtractmain(minmz_arg, maxmz_arg, ccsconversion, batchbool)
-        elif ccsconversion == "True" and batchbool != "True":
-            BreukerExtractmain(minmz_arg, maxmz_arg, ccsconversion)
-        elif ccsconversion != "True" and batchbool == "True":
-            BreukerExtractmain(minmz_arg, maxmz_arg, batchbool)
+        if batchvalue.lower() == "false":
+            print("Running Single System Folder Mode")
+
+            try:
+                mz_arg = float(mz_arg)
+                charge_arg = int(charge_arg)
+                BreukerExtractmain(float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg])
+            except ValueError:
+                BreukerExtractmain(float(minmz_arg), float(maxmz_arg))
+
+        elif batchvalue == "Batch":
+            try:
+                mz_arg = float(mz_arg)
+                charge_arg = int(charge_arg)
+                BreukerExtractmain(float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg], batchvalue)
+            except ValueError:
+                BreukerExtractmain(float(minmz_arg), float(maxmz_arg), False, batchvalue)
         else:
-            print("Single Folder")
-            BreukerExtractmain(minmz_arg, maxmz_arg)
+            print("Invalid Batch Mode bool")
+
+
+
+
 
 if __name__ == '__main__':
 

@@ -647,12 +647,19 @@ class BreukerImportTypeUI(object):
         # Obtaining entry values for single folder extractions
         minimunmz = self.builder.get_object("minmz_val").get()
         maxmz = self.builder.get_object("maxmz_val").get()
+        ionmz = self.builder.get_object("ionmz_val").get()
+        ioncharge = self.builder.get_object("ioncharge_val").get()
 
-        #
-        # self.return_code = finishbool
-        #
-        # if self.return_code:
-        #     self.mainwindow.destroy()
+        args = f"{self.breukerextractorexe} {minimunmz} {maxmz} {ionmz} {ioncharge} Batch"
+
+        completed_proc = subprocess.run(args)
+
+        print(f'\n{completed_proc}')
+
+        self.return_code = completed_proc.returncode
+
+        if self.return_code:
+            self.mainwindow.destroy()
 
     def on_checkbox_singlefolder_clicked(self):
         """
@@ -667,17 +674,11 @@ class BreukerImportTypeUI(object):
         ionmz = self.builder.get_object("ionmz_val").get()
         ioncharge = self.builder.get_object("ioncharge_val").get()
 
-        args = f"{self.breukerextractorexe} {minimunmz} {maxmz} {False} {False}"
+        args = f"{self.breukerextractorexe} {minimunmz} {maxmz} {ionmz} {ioncharge} False"
 
-        print(args)
         completed_proc = subprocess.run(args)
+
         print(f'\n{completed_proc}')
-        # if ionmz == 0 or ioncharge == 0:
-        #     completed_proc = subprocess.run(args)
-        #     print(f'\n{completed_proc}')
-        # else:
-        #     completed_proc = subprocess.run(args)
-        #     print(f'\n{completed_proc}')
 
         self.return_code = completed_proc.returncode
 
