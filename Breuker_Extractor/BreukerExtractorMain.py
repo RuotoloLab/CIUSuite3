@@ -13,6 +13,14 @@ import re
 import pandas as pd
 import numpy as np
 
+if getattr(sys, 'frozen', False):
+    bundle_dir = sys._MEIPASS
+    dll_path = os.path.join(bundle_dir, 'timsdata.dll')
+    os.add_dll_directory(os.path.dirname(dll_path))
+else:
+    os.add_dll_directory(os.getcwd())
+    dll_path = os.path.join(os.getcwd(), 'timsdata.dll')
+
 # Function to extract the mz and int dimension from a .d folder
 def extractor_koint_fromframes(folder_path, mzmin, mzmax, voltageval, userecalstate = 0):
     """
@@ -192,8 +200,8 @@ def BreukerExtractmain(mz_min, mz_max, ccs_conversion = None, processingmode = N
         else:
             masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}" +"_raw.csv")
 
-    # Returning value to close the GUI and go back to main CIUSUite3 GUI
-    return True
+    # # Returning value to close the GUI and go back to main CIUSUite3 GUI
+    # return True
 
 def main():
     """
@@ -215,19 +223,23 @@ def main():
         # Example adding a second attribute
         systemarguments = sys.argv
 
-        minmz_arg = systemarguments[0]
-        maxmz_arg = systemarguments[1]
-        ccsconversion = systemarguments[2]
-        batchbool = systemarguments[3]
+        minmz_arg = systemarguments[1]
+        maxmz_arg = systemarguments[2]
+        ccsconversion = systemarguments[3]
+        batchbool = systemarguments[4]
 
 
-        if ccsconversion and batchbool:
+
+
+
+        if ccsconversion == 'True' and batchbool == "True":
             BreukerExtractmain(minmz_arg, maxmz_arg, ccsconversion, batchbool)
-        elif ccsconversion and batchbool == False:
+        elif ccsconversion == "True" and batchbool != "True":
             BreukerExtractmain(minmz_arg, maxmz_arg, ccsconversion)
-        elif ccsconversion == False and batchbool:
+        elif ccsconversion != "True" and batchbool == "True":
             BreukerExtractmain(minmz_arg, maxmz_arg, batchbool)
         else:
+            print("Single Folder")
             BreukerExtractmain(minmz_arg, maxmz_arg)
 
 

@@ -22,6 +22,7 @@ import logging
 import pygubu
 import IMSCal19Adapt_Parameter_Parser
 import fromTWIMtoIMSCal
+import subprocess
 
 # Nice way to import...however everything breaks down when trying to import the .dll library
 # from Breuker_Extractor.BreukerExtractorMain import BreukerExtractmain
@@ -596,11 +597,11 @@ class BreukerImportTypeUI(object):
     """
     Simple dialog with several fields build with Pygubu for inputting crop values
     """
-    def __init__(self, ui_file, mainpythonfile):
+    def __init__(self, ui_file, breukerextractexe):
 
         # Get crop input from the Crop_vals UI form
         self.builder = pygubu.Builder()
-        self.breukerminapy = mainpythonfile
+        self.breukerextractorexe = breukerextractexe
 
         # load the UI file
         self.builder.add_from_file(ui_file)
@@ -666,13 +667,17 @@ class BreukerImportTypeUI(object):
         ionmz = self.builder.get_object("ionmz_val").get()
         ioncharge = self.builder.get_object("ioncharge_val").get()
 
+        args = f"{self.breukerextractorexe} {minimunmz} {maxmz} {ionmz,ioncharge} {False}"
+        completed_proc = subprocess.run(args)
+        print(f'\n{completed_proc}')
+        # if ionmz == 0 or ioncharge == 0:
+        #     completed_proc = subprocess.run(args)
+        #     print(f'\n{completed_proc}')
+        # else:
+        #     completed_proc = subprocess.run(args)
+        #     print(f'\n{completed_proc}')
 
-        if ionmz == 0 or ioncharge == 0:
-            finishbool = BreukerExtractmain(minimunmz, maxmz)
-        else:
-            finishbool = BreukerExtractmain(minimunmz, maxmz, [ionmz, ioncharge])
-
-        self.return_code = finishbool
+        self.return_code = completed_proc.returncode
 
         if self.return_code:
             self.mainwindow.destroy()
