@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="breukerimport">
+    <property name="height">200</property>
+    <property name="takefocus">false</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="batchmode">
+        <property name="height">100</property>
+        <property name="width">400</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">1</property>
+        </layout>
+        <child>
+          <object class="ttk.Button" id="batchmode_extraction">
+            <property name="command" type="command" cbtype="simple">on_checkbox_batchmode_clicked</property>
+            <property name="text" translatable="yes">Batch Mode Extraction</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="singlefile">
+        <property name="height">200</property>
+        <property name="width">400</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="pady">10</property>
+          <property name="row">3</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label2">
+            <property name="text" translatable="yes">Single Folder Extraction Parameters</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="columnspan">2</property>
+              <property name="pady">10</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="minmz">
+            <property name="text" translatable="yes">Minimun m/z</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">1</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="minmz_val">
+            <property name="textvariable">int:minmz</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="maxmz">
+            <property name="text" translatable="yes">Maximun m/z</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="maxmz_val">
+            <property name="textvariable">int:maxmz</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="ionmz">
+            <property name="text" translatable="yes">Ion m/z</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">3</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="ionmz_val">
+            <property name="textvariable">int:ionmz</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">3</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="ioncharge">
+            <property name="text" translatable="yes">Ion Charge</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="ioncharge_val">
+            <property name="textvariable">int:ioncharge</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">4</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Message" id="message2">
+        <property name="aspect">300</property>
+        <property name="font">TkTooltipFont</property>
+        <property name="padx">25</property>
+        <property name="pady">25</property>
+        <property name="relief">flat</property>
+        <property name="text" translatable="yes">For Batch Extraction use the button below. Format input CSV file as indicated in the user manual. </property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="columnspan">2</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Message" id="message3">
+        <property name="aspect">300</property>
+        <property name="highlightthickness">25</property>
+        <property name="padx">25</property>
+        <property name="takefocus">false</property>
+        <property name="text" translatable="yes">For single folder (a folder that contains all .d files to form a fingerprint) input parameters below. Leave zero value for "Ion m/z" and "Ion Charge" if CCS conversion is not necessary.</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">2</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="singlefolder">
+        <property name="command" type="command" cbtype="simple">on_checkbox_singlefolder_clicked</property>
+        <property name="state">normal</property>
+        <property name="text" translatable="yes">Single Folder Extraction</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">4</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>

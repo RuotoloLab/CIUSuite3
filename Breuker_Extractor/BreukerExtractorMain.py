@@ -10,7 +10,6 @@ from timsdata import *
 from tkinter import filedialog
 import os
 import re
-import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
@@ -196,13 +195,53 @@ def BreukerExtractmain(mz_min, mz_max, ccs_conversion = None, processingmode = N
     # Returning value to close the GUI and go back to main CIUSUite3 GUI
     return True
 
+def main():
+    """
+    Main fcuntion to enable terminal usage
+    @return: void
+    """
+
+    #Checking Python version
+    majorversion = sys.version_info.major
+    minorversion = sys.version_info.minor
+
+    if majorversion < 3:
+        print("Python version must be at least 3.10")
+    elif majorversion == 3 and minorversion < 10:
+        print("Python version must be at least 3.10")
+    else:
+        print("Python version is at least greater than or equal to 3.10")
+
+        # Example adding a second attribute
+        systemarguments = sys.argv
+
+        minmz_arg = systemarguments[0]
+        maxmz_arg = systemarguments[1]
+        ccsconversion = systemarguments[2]
+        batchbool = systemarguments[3]
+
+
+        if ccsconversion and batchbool:
+            BreukerExtractmain(minmz_arg, maxmz_arg, ccsconversion, batchbool)
+        elif ccsconversion and batchbool == False:
+            BreukerExtractmain(minmz_arg, maxmz_arg, ccsconversion)
+        elif ccsconversion == False and batchbool:
+            BreukerExtractmain(minmz_arg, maxmz_arg, batchbool)
+        else:
+            BreukerExtractmain(minmz_arg, maxmz_arg)
+
+
+
+
 
 if __name__ == '__main__':
 
-    minmz = 4444
-    maxmz = 4455
-    ccs_conversionls = [15, 4450]
+    # minmz = 4444
+    # maxmz = 4455
+    # ccs_conversionls = [15, 4450]
+    #
+    #
+    # BreukerExtractmain(4444, 4455)
 
-
-    BreukerExtractmain(4444, 4455)
+    main()
 
