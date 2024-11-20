@@ -5,17 +5,17 @@
 block_cipher = None
 
 b = [
-    ('C:\\Users\\caror\\AppData\\Roaming\\Python\\Python37\\site-packages\\sklearn\\.libs\\vcomp140.dll', '.\\sklearn\\.libs')
+    ('C:\\Users\\caror\\AppData\\Roaming\\Python\\Python312\\site-packages\\sklearn\\.libs\\vcomp140.dll', '.\\sklearn\\.libs')
     ]
 	
 resource_files = [
 ('UI/*', '.png'),
 ('UI/*', 'UI'),
 ('tooltips.txt', '.'),
-('C:\\Users\\caror\\AppData\\Roaming\\Python\\Python37\\site-packages\\PyQt5\\Qt5\\bin\\*','PyQt5\\Qt5\\bin')]
+('C:\\Users\\caror\\AppData\\Roaming\\Python\\Python312\\site-packages\\PyQt5\\Qt5\\bin\\*','PyQt5\\Qt5\\bin')]
 
 a = Analysis(['CIU2_Main.py'],
-             pathex=['C:\\Users\\caror\\Documents\\CIUSuite3', 'C:\\Users\\caror\\AppData\\Roaming\\Python\\Python37\\site-packages\\PyQt5\\Qt5\bin'],
+             pathex=['C:\\Users\\caror\\Documents\\CIUSuite3', 'C:\\Users\\caror\\AppData\\Roaming\\Python\\Python312\\site-packages\\PyQt5\\Qt5\bin'],
              binaries=b,
              datas=resource_files,
              hiddenimports=[],
