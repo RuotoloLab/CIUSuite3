@@ -27,11 +27,16 @@ elif sys.platform[:5] == "linux":
 else:
     raise Exception("Unsupported platform.")
 
+print(f"dll_path = {dll_path}")
+
 path = Path(Path(__file__).parent.absolute(), 'libs', libname).as_posix()
 if os.path.exists(path):
     dll = cdll.LoadLibrary(path)
+    # print(f"dll = {dll}")
 else:
+    print(f"libname ={libname}")
     dll = cdll.LoadLibrary(libname)
+    # print(f'elsedll = {dll}')
 
 
 dll.tims_open_v2.argtypes = [ c_char_p, c_uint32, c_uint32 ]
