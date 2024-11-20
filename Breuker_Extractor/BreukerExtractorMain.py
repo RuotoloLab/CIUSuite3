@@ -40,7 +40,7 @@ def extractor_koint_fromframes(folder_path, mzmin, mzmax, voltageval, userecalst
     @return:
     """
     print(f"folder_path = {folder_path}")
-    print(f"timsdata.PressureCompensationStrategy.AnalyisGlobalPressureCompensation = {timsdata.PressureCompensationStrategy.AnalyisGlobalPressureCompensation}")
+    # print(f"timsdata.PressureCompensationStrategy.AnalyisGlobalPressureCompensation = {timsdata.PressureCompensationStrategy.AnalyisGlobalPressureCompensation}")
     # Create object to hold the raw data extracted (Attributes for no not editable by user)
     td = timsdata.TimsData(folder_path, use_recalibrated_state=userecalstate,
                   pressure_compensation_strategy=timsdata.PressureCompensationStrategy.AnalyisGlobalPressureCompensation)
@@ -279,17 +279,30 @@ def main():
 
             for analysis in paramls:
 
-                try:
-                    mz_arg = float(analysis[4])
-                    charge_arg = int(analysis[3])
+                # Because paramls is a generator output...the items are list sof numpt data types (for numerical values only)
+                # below I use .item() to extract
 
-                    if mz_arg == 0 or charge_arg == 0:
-                        BreukerExtractmain(analysis[0], float(analysis[1]), float(analysis[2]))
+
+
+                fingerprintdir = analysis[0]
+                print(fingerprintdir)
+                minmz_arg = analysis[1].item()
+                maxmz_arg = analysis[2].item()
+                charge_arg = analysis[3].item()
+                mz_arg = analysis[4].item()
+
+
+                try:
+                    mz_arg = float(mz_arg)
+                    charge_arg = int(charge_arg)
+
+                    if mz_arg == 0.0 or charge_arg == 0:
+                        BreukerExtractmain(fingerprintdir, float(minmz_arg), float(maxmz_arg))
                     else:
                         print("CCS Conversion will be done")
-                        BreukerExtractmain(analysis[0], float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg])
+                        BreukerExtractmain(fingerprintdir, float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg])
                 except ValueError:
-                    BreukerExtractmain(analysis[0],float(minmz_arg), float(maxmz_arg))
+                    BreukerExtractmain(fingerprintdir, float(minmz_arg), float(maxmz_arg))
 
 
 
