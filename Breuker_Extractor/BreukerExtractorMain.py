@@ -7,22 +7,26 @@ Script to extract Raw Data from Breuker .d files
 With some code from tdfextractor by Michael Armbruster
 """
 
-from timsdata import *
+import timsdata
+from timsdata import oneOverK0ToCCSforMz
 from tkinter import filedialog
 import os
 import re
 import pandas as pd
 import numpy as np
+import sys
+
+# print(sys.path)
+# sys.path.append(os.path.abspath('.'))
+# print(sys.path)
 
 if getattr(sys, 'frozen', False):
     bundle_dir = sys._MEIPASS
     dll_path = os.path.join(bundle_dir, 'timsdata.dll')
     os.add_dll_directory(os.path.dirname(dll_path))
-    print(dll_path)
 else:
     os.add_dll_directory(os.getcwd())
     dll_path = os.path.join(os.getcwd(), 'timsdata.dll')
-    print(dll_path)
 
 # Function to extract the mz and int dimension from a .d folder
 def extractor_koint_fromframes(folder_path, mzmin, mzmax, voltageval, userecalstate = 0):
@@ -36,10 +40,14 @@ def extractor_koint_fromframes(folder_path, mzmin, mzmax, voltageval, userecalst
     @return:
     """
     print(f"folder_path = {folder_path}")
+    print(f"timsdata.PressureCompensationStrategy.AnalyisGlobalPressureCompensation = {timsdata.PressureCompensationStrategy.AnalyisGlobalPressureCompensation}")
     # Create object to hold the raw data extracted (Attributes for no not editable by user)
-    td = TimsData(folder_path, use_recalibrated_state=userecalstate,
-                  pressure_compensation_strategy=PressureCompensationStrategy.AnalyisGlobalPressureCompensation)
+    td = timsdata.TimsData(folder_path, use_recalibrated_state=userecalstate,
+                  pressure_compensation_strategy=timsdata.PressureCompensationStrategy.AnalyisGlobalPressureCompensation)
+
+
     conn = td.conn
+    # print(f"conn = {conn}")
 
     # Extract number of frames
     q = conn.execute("SELECT COUNT(*) FROM Frames")
@@ -116,8 +124,18 @@ def extract_voltage_from_method_file(folder_path):
         print(f"IMS_TunnelVoltage_Delta_6 not found in the method file: {method_file}")
         return None
 
-def singlefoldedextraction(ciudir, mz_min, mz_max, ccs_conversion = None):
+def BreukerExtractmain(ciudir, mz_min, mz_max, ccs_conversion = None):
+    """
+
+    @param ciudir:
+    @param mz_min:
+    @param mz_max:
+    @param ccs_conversion:
+    @return:
+    """
+
     # Select folder that contains all the .d files of interest
+
 
     masterjoindf = pd.DataFrame()
 
@@ -135,7 +153,6 @@ def singlefoldedextraction(ciudir, mz_min, mz_max, ccs_conversion = None):
             print(f"Voltage = {cv_val}")
 
             # Extract IM and int vals
-            # TODO: Add the option for CCS calibration
             koint_val = extractor_koint_fromframes(diritempath, mz_min, mz_max, cv_val)
 
             # print(koint_val)
@@ -186,32 +203,29 @@ def singlefoldedextraction(ciudir, mz_min, mz_max, ccs_conversion = None):
         masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}" + "_raw.csv")
 
 
-# # Returning value to close the GUI and go back to main CIUSUite3 GUI
-# return True
-
-def BreukerExtractmain(mz_minvl, mz_maxvl, ccs_conversionvl = None, processingmode = None):
-    """
-    Running Extraction for Breuker files
-    @param mz_min: float, Minimun m/z value for extraction
-    @param mz_max: float, Maximun m/z value for extraction
-    @param processingmode: bool, Single folder with .d files or several folders
-    @param ccs_conversion: ls, values = [charge, ion m/z value]
-    @return: True, for GUI handeling
+def batchfile_parser(batchfile_path):
     """
 
+    @param batchfile_path:
+    @return:
+    """
 
-    if processingmode == "Batch":
-        print("Batch Mode coming soon")
-        # For a mode where several folder need to be read or when a .d file contains all voltages
-    else:
-        fingerprintdir = filedialog.askdirectory(title="Choose Folder with .d files to make a fingerprint CIU")
+    batchdataframe = pd.read_csv(batchfile_path)
 
-        singlefoldedextraction(fingerprintdir, mz_minvl, mz_maxvl, ccs_conversionvl)
+    for row in batchdataframe.index:
+        parentfolder_val = batchdataframe.loc[row, "Parent Folder"]
+        mzmin_val = batchdataframe.loc[row, "mzmin"]
+        mzmax_val = batchdataframe.loc[row, "mzmax"]
+        charge_val = batchdataframe.loc[row, "Charge"]
+        mz_val = batchdataframe.loc[row, "mz"]
+
+        yield [parentfolder_val, mzmin_val, mzmax_val, charge_val, mz_val]
+
 
 
 def main():
     """
-    Main fcuntion to enable terminal usage
+    Main function to enable terminal usage
     @return: void
     """
 
@@ -242,31 +256,43 @@ def main():
 
         if batchvalue.lower() == "false":
             print("Running Single System Folder Mode")
+            fingerprintdir = filedialog.askdirectory(title="Choose Folder with .d files to make a fingerprint CIU")
 
             try:
                 mz_arg = float(mz_arg)
                 charge_arg = int(charge_arg)
 
                 if mz_arg == 0.0 or charge_arg == 0:
-                    BreukerExtractmain(float(minmz_arg), float(maxmz_arg))
+                    BreukerExtractmain(fingerprintdir, float(minmz_arg), float(maxmz_arg))
                 else:
                     print("CCS Conversion will be done")
-                    BreukerExtractmain(float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg])
+                    BreukerExtractmain(fingerprintdir, float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg])
             except ValueError:
-                BreukerExtractmain(float(minmz_arg), float(maxmz_arg))
+                BreukerExtractmain(fingerprintdir, float(minmz_arg), float(maxmz_arg))
 
-        elif batchvalue == "Batch":
+        elif batchvalue.lower() == "true":
             print("Running Batch Mode")
-            try:
-                mz_arg = float(mz_arg)
-                charge_arg = int(charge_arg)
-                if mz_arg == 0.0 or charge_arg == 0:
-                    BreukerExtractmain(float(minmz_arg), float(maxmz_arg))
-                else:
-                    print("CCS Conversion will be done")
-                    BreukerExtractmain(float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg], batchvalue)
-            except ValueError:
-                BreukerExtractmain(float(minmz_arg), float(maxmz_arg), False, batchvalue)
+
+            breukerExtrac_batchfile = filedialog.askopenfilename(title = "Open Breuker batch mode file", filetypes=[('CSV File', '.csv')])
+
+            paramls = list(batchfile_parser(breukerExtrac_batchfile))
+
+            for analysis in paramls:
+
+                try:
+                    mz_arg = float(analysis[4])
+                    charge_arg = int(analysis[3])
+
+                    if mz_arg == 0 or charge_arg == 0:
+                        BreukerExtractmain(analysis[0], float(analysis[1]), float(analysis[2]))
+                    else:
+                        print("CCS Conversion will be done")
+                        BreukerExtractmain(analysis[0], float(minmz_arg), float(maxmz_arg), [mz_arg, charge_arg])
+                except ValueError:
+                    BreukerExtractmain(analysis[0],float(minmz_arg), float(maxmz_arg))
+
+
+
         else:
             print("Invalid Batch Mode bool")
 
@@ -276,12 +302,9 @@ def main():
 
 if __name__ == '__main__':
 
-    # minmz = 4444
-    # maxmz = 4455
-    # ccs_conversionls = [15, 4450]
-    #
-    #
-    # BreukerExtractmain(4444, 4455)
+    #Test with no terminal
+    # fingerprintdir = filedialog.askdirectory(title="Choose Folder with .d files to make a fingerprint CIU")
+    # BreukerExtractmain(fingerprintdir, 4444, 4455, [16,4450])
 
     main()
 
