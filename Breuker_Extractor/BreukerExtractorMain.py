@@ -176,6 +176,11 @@ def BreukerExtractmain(ciudir, mz_min, mz_max, ccs_conversion = None):
     str_sortedcol_vals = [str(x) for x in columnvals]
     masterjoindf = masterjoindf.reindex(str_sortedcol_vals, axis=1)
 
+    # Must sort mobility values too (They are already float, so less steps required)
+    rows = masterjoindf.index
+    rows.sort_values()
+    masterjoindf = masterjoindf.reindex(rows, axis=0)
+
     # Rename Mobility Units
     if ccs_conversion:
         masterjoindf.index.names = ['CCS (A^2)']
@@ -281,8 +286,6 @@ def main():
 
                 # Because paramls is a generator output...the items are list sof numpt data types (for numerical values only)
                 # below I use .item() to extract
-
-
 
                 fingerprintdir = analysis[0]
                 print(fingerprintdir)
