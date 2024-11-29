@@ -203,6 +203,8 @@ def BreukerExtractmain(ciudir, mz_min, mz_max, ccs_conversion = None):
     # Replace Nan with zeroes
     masterjoindf = masterjoindf.fillna(0)
 
+    print(masterjoindf)
+
     # Name file based on mobility status
     if ccs_conversion:
         masterjoindf.to_csv(outputname + f"_mz{mz_min}-{mz_max}_ccscal" + "_raw.csv", index=False)
