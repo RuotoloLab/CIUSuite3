@@ -48,15 +48,16 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "{#SourceDir}\dist\CIU3_Main\CIU3_Main.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\dist\CIU3_Main\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#SourceDir}\{#ReadmeName}"; DestDir: "{app}"; Flags: isreadme ignoreversionSource: "{#SourceDir}\classification_template_example.csv"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourceDir}\FromRaw_to_CCS-CIU_template.csv"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourceDir}\CIU3_param_info.csv"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourceDir}\BreukerExtractor_batchmode_template.csv"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\CIUSuite3_win10.ico"; DestDir: "{app}"; DestName: "{#IconName}"; Flags: ignoreversion
 Source: "{#SourceDir}\README.txt"; DestDir: "{app}"; Flags: ignoreversion 
 ; Source: "C:\Users\dpolasky\Desktop\Data Tools and Src Code\_Agilent CIU Extractor\_SIMPLE_versionForDistribution\release\*"; DestDir: "{app}\Agilent_Extractor"; Flags: ignoreversion
 Source: "{#SourceDir}\Agilent_Extractor\*"; DestDir: "{app}\_internal\Agilent_Extractor"; Flags: ignoreversion
-Source: "{#SourceDir}\Breuker_Extractor\*"; DestDir: "{app}\_internal\Breuker_Extractor"; Flags: ignoreversion
+Source: "{#SourceDir}\Breuker_Extractor\*"; DestDir: "{app}\_internal\Breuker_Extractor"; Flags: ignoreversion recursesubdirs
 ; Source: "C:\Users\dpolasky\PycharmProjects\CIUSuite2\TWIMExtract\*"; DestDir: "{app}\TWIMExtract"; Flags: ignoreversion recursesubdirs
 Source: "{#SourceDir}\TWIMExtract\*"; DestDir: "{app}\_internal\TWIMExtract"; Permissions: users-modify; Flags: ignoreversion recursesubdirs
-Source: "{#SourceDir}\CIU3_param_info.csv"; DestDir: "{commonappdata}\{#MyAppDirName}"; Permissions: users-modify; Flags: ignoreversion
-Source: "{#SourceDir}\FromRaw_to_CCS-CIU_template.csv"; DestDir: "{commonappdata}\{#MyAppDirName}"; Permissions: users-modify; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
