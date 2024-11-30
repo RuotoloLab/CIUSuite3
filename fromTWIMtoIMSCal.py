@@ -219,7 +219,7 @@ def twim_to_ccs_main():
     # ims19loc = filedialog.askdirectory(title='Where is IMSCal19')
     # os.chdir(ims19loc)
 
-    ims19loc = "C:\IMSCal19"
+    ims19loc = r"C:\IMSCal19"
 
     os.chdir(ims19loc)
 
@@ -307,7 +307,7 @@ def twimextraction_forCIUSuitetwo(dict_of_params, extractor_path, ccs_mode = Fal
             args = TWIMCalibrate_batfile_gatherer(ims19_input_file, batfile_str, calfile_path,
                                                          ims19_output_file, params_forcalibration_calculations)
 
-            ims19loc = "C:\IMSCal19"
+            ims19loc = r"C:\IMSCal19"
 
             os.chdir(ims19loc)
 

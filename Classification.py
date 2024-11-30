@@ -1633,7 +1633,7 @@ def save_feature_scores(features_by_subclass, scheme_name, output_path):
     outfilename = os.path.join(output_path, scheme_name + '_UFS.csv')
     output_string = 'UFS (Feature Selection) Results\n'
 
-    if features_by_subclass[0][0].subclass_label is not '0':
+    if features_by_subclass[0][0].subclass_label != '0':
         lineheader = 'SubClass,Collision Voltage (V),Mean Score,StDev Score\n'
     else:
         lineheader = 'Collision Voltage (V),Mean Score,StDev Score\n'
@@ -1642,7 +1642,7 @@ def save_feature_scores(features_by_subclass, scheme_name, output_path):
         # if feature_list[0].subclass_label is not '0':
         #     output_string += 'Subclass: {}\n'.format(feature_list[0].subclass_label)
         for feature in feature_list:
-            if feature_list[0].subclass_label is not '0':
+            if feature_list[0].subclass_label != '0':
                 line = '{},{},{:.4f},{:.4f},{:.4f}\n'.format(feature_list[0].subclass_label, feature.cv, feature.mean_score, feature.std_dev_score, feature.mean_score - feature.std_dev_score)
             else:
                 line = '{},{:.4f},{:.4f},{:.4f}\n'.format(feature.cv, feature.mean_score, feature.std_dev_score, feature.mean_score - feature.std_dev_score)
