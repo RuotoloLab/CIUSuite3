@@ -1,4 +1,4 @@
 ﻿Parent Folder,mzmin,mzmax,Convert to CCS,Charge,mz
-C:\Users\caror\University of Michigan Dropbox\Carolina Rojas Ramirez\Postdoc\RuotoloExtendedSupport\BreukerExtractionUpdate\BSA_timsTOF_CIU,4445,4455,FALSE,16,4450
-C:\Users\caror\University of Michigan Dropbox\Carolina Rojas Ramirez\Postdoc\RuotoloExtendedSupport\BreukerExtractionUpdate\BSA_timsTOF_CIU,4445,4455,TRUE,16,4450
-C:\Users\caror\University of Michigan Dropbox\Carolina Rojas Ramirez\Postdoc\RuotoloExtendedSupport\BreukerExtractionUpdate\BSA_timsTOF_CIU - small,4445,4455,TRUE,16,4450
+path_to_data,4445,4455,FALSE,16,4450
+path_to_data,4445,4455,TRUE,16,4450
+path_to_data,4445,4455,TRUE,16,4450
