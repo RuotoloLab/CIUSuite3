@@ -55,7 +55,7 @@ Source: "{#SourceDir}\CIUSuite3_win10.ico"; DestDir: "{app}"; DestName: "{#IconN
 Source: "{#SourceDir}\README.txt"; DestDir: "{app}"; Flags: ignoreversion 
 ; Source: "C:\Users\dpolasky\Desktop\Data Tools and Src Code\_Agilent CIU Extractor\_SIMPLE_versionForDistribution\release\*"; DestDir: "{app}\Agilent_Extractor"; Flags: ignoreversion
 Source: "{#SourceDir}\Agilent_Extractor\*"; DestDir: "{app}\_internal\Agilent_Extractor"; Flags: ignoreversion
-Source: "{#SourceDir}\Breuker_Extractor\*"; DestDir: "{app}\_internal\Breuker_Extractor"; Flags: ignoreversion recursesubdirs
+Source: "{#SourceDir}\Breuker_Extractor\*"; DestDir: "{app}\_internal\Breuker_Extractor"; Flags: ignoreversion 
 ; Source: "C:\Users\dpolasky\PycharmProjects\CIUSuite2\TWIMExtract\*"; DestDir: "{app}\TWIMExtract"; Flags: ignoreversion recursesubdirs
 Source: "{#SourceDir}\TWIMExtract\*"; DestDir: "{app}\_internal\TWIMExtract"; Permissions: users-modify; Flags: ignoreversion recursesubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
