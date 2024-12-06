@@ -49,7 +49,8 @@ Source: "{#SourceDir}\dist\CIU3_Main\CIU3_Main.exe"; DestDir: "{app}"; Flags: ig
 Source: "{#SourceDir}\dist\CIU3_Main\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#SourceDir}\{#ReadmeName}"; DestDir: "{app}"; Flags: isreadme ignoreversionSource: "{#SourceDir}\classification_template_example.csv"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\FromRaw_to_CCS-CIU_template.csv"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#SourceDir}\CIU3_param_info.csv"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourceDir}\CIU3_param_info.csv"; DestDir: "{commonappdata}\CIUSuite3"; Flags: ignoreversion
+Source: "{#SourceDir}\ciu3.log"; DestDir: "{commonappdata}\CIUSuite3"; Flags: ignoreversion
 Source: "{#SourceDir}\BreukerExtractor_batchmode_template.csv"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\CIUSuite3_win10.ico"; DestDir: "{app}"; DestName: "{#IconName}"; Flags: ignoreversion
 Source: "{#SourceDir}\README.txt"; DestDir: "{app}"; Flags: ignoreversion 
