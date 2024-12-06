@@ -66,7 +66,7 @@ import matplotlib
 matplotlib.rcParams.update({'figure.autolayout': True})
 matplotlib.use('Agg')
 
-# hard_params_file = os.path.join(program_data_dir, 'CIU2_param_info_new.csv')
+
 hard_params_file = os.path.join(program_data_dir, 'CIU3_param_info.csv')
 hard_twimextract_path = os.path.join(root_dir, 'TWIMExtract', 'jars', 'TWIMExtract.jar')
 hard_file_path_ui = os.path.join(root_dir, 'UI', 'CIUSuite3.ui')
@@ -80,7 +80,7 @@ hard_agilent_ext_path = os.path.join(root_dir, os.path.join('Agilent_Extractor',
 hard_tooltips_file = os.path.join(root_dir, 'tooltips.txt')
 help_file = os.path.join(root_dir, 'CIUSuite3_Manual.pdf')
 about_file = os.path.join(root_dir, 'README.txt')
-log_file = os.path.join(program_data_dir, 'ciu2.log')
+log_file = os.path.join(program_data_dir, 'ciu3.log')
 PROJECT_PATH = os.path.join(root_dir, 'UI')
 
 class CIUSuite2(object):
