@@ -21,6 +21,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
 import os
+import matplotlib
+matplotlib.use('Agg')
+matplotlib.rcParams.update({'figure.autolayout': True})
 # Load resource file paths, supporting both live code and code bundled by PyInstaller
 if getattr(sys, 'frozen', False):
     root_dir = sys._MEIPASS
@@ -62,10 +65,6 @@ from peakpicking_mz import peakpicking_main
 from SIU_CV_Correction import CV_correction_main
 from DTIM_CCS_calibration import DTIM_CCS_calibration_main
 
-import matplotlib
-matplotlib.rcParams.update({'figure.autolayout': True})
-matplotlib.use('Agg')
-
 
 hard_params_file = os.path.join(program_data_dir, 'CIU3_param_info.csv')
 hard_twimextract_path = os.path.join(root_dir, 'TWIMExtract', 'jars', 'TWIMExtract.jar')
@@ -74,7 +73,9 @@ hard_short_ui = os.path.join(root_dir, 'UI', 'CIUSuite2_short.ui')
 hard_crop_ui = os.path.join(root_dir, 'UI', 'Crop_vals.ui')
 hard_watersimport_ui = os.path.join(root_dir, 'UI', 'WatersImport_type.ui')
 hard_breukerimport_ui = os.path.join(root_dir, 'UI', 'BreukerExtractor.ui')
-hard_breukerextractormain_path = os.path.join(root_dir, 'Breuker_Extractor', 'BreukerExtractor.exe')
+hard_breukerextractormain_path = os.path.join(
+    root_dir, 'Breuker_Extractor', 'omni', 'tdfExtract_v2.1.exe'
+)
 hard_cutoffcrop = os.path.join(root_dir, 'UI', 'Cutoff_crop.ui')
 hard_agilent_ext_path = os.path.join(root_dir, os.path.join('Agilent_Extractor', 'MIDAC_CIU_Extractor.exe'))
 hard_tooltips_file = os.path.join(root_dir, 'tooltips.txt')
@@ -1486,12 +1487,17 @@ class CIUSuite2(object):
                 #                 self.load_raw_files(raw_files)
                 #             else:
                 #                 logger.error('No raw files found! Check the chosen save directory')
-            elif vendor_type == 'Breuker':
-                breukerimport_app = Raw_Data_Import.BreukerImportTypeUI(hard_breukerimport_ui, hard_breukerextractormain_path)
-                returncode = breukerimport_app.run()
-
-                if returncode:
-                    self.progress_done()
+            elif vendor_type == 'Bruker':
+                # Simply launch the bundled tdfExtract executable for Bruker raw
+                # data extraction. Users can run the standalone extractor and
+                # load the resulting _raw.csv files separately.
+                subprocess.Popen([hard_breukerextractormain_path])
+                messagebox.showinfo(
+                    'tdfExtract launched',
+                    'The Bruker extractor has been opened in a new window. '
+                    'Use it to generate "_raw.csv" files from raw data - then load the csv files '
+                    'within CIUSuite.'
+                )
             else:
                 logger.error('Invalid vendor, no files loaded')
 
