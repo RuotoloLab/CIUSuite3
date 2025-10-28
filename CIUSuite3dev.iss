@@ -5,14 +5,14 @@
 #define MyAppDirName "CIUSuite3"
 #define MyAppVersion "1.0"
 #define MyAppPublisher "University of Michigan"
-#define MyAppURL "https://github.com/RuotoloLab/CIUSuite2/releases/tag/v3.0.0"
+#define MyAppURL "https://github.com/MRArmbruster/CIUSuite_tests/releases/tag/v3.0.2"
 #define MyAppExeName "CIU3_Main.exe"
 #define ReadmeName "CIUSuite3_Manual.pdf"
 #define IconName "CIUSuite3_win10.ico"
 #define AgilentExtName "MIDAC_CIU_Extractor"
 #define TWIMExName "TWIMExtract"
-#define SourceDir "C:\Users\caror\CIUSuite3"
-#define OutputDir "C:\Users\caror\CIUSuite3\Output"
+#define SourceDir "C:\Users\armbrusm\Documents\CIUSuite_tests\CIUSuite3"
+#define OutputDir "C:\Users\armbrusm\Documents\CIUSuite_tests\CIUSuite3\Output"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -47,7 +47,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; Final version includes both TWIMExtract and MIDAC Extractor
 Source: "{#SourceDir}\dist\CIU3_Main\CIU3_Main.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\dist\CIU3_Main\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "{#SourceDir}\{#ReadmeName}"; DestDir: "{app}"; Flags: isreadme ignoreversionSource: "{#SourceDir}\classification_template_example.csv"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourceDir}\{#ReadmeName}"; DestDir: "{app}"; Flags: isreadme ignoreversion
+Source: "{#SourceDir}\classification_template_example.csv"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\FromRaw_to_CCS-CIU_template.csv"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\CIU3_param_info.csv"; DestDir: "{commonappdata}\CIUSuite3"; Flags: ignoreversion
 Source: "{#SourceDir}\ciu3.log"; DestDir: "{commonappdata}\CIUSuite3"; Flags: ignoreversion
@@ -56,7 +57,7 @@ Source: "{#SourceDir}\CIUSuite3_win10.ico"; DestDir: "{app}"; DestName: "{#IconN
 Source: "{#SourceDir}\README.txt"; DestDir: "{app}"; Flags: ignoreversion 
 ; Source: "C:\Users\dpolasky\Desktop\Data Tools and Src Code\_Agilent CIU Extractor\_SIMPLE_versionForDistribution\release\*"; DestDir: "{app}\Agilent_Extractor"; Flags: ignoreversion
 Source: "{#SourceDir}\Agilent_Extractor\*"; DestDir: "{app}\_internal\Agilent_Extractor"; Flags: ignoreversion
-Source: "{#SourceDir}\Breuker_Extractor\*"; DestDir: "{app}\_internal\Breuker_Extractor"; Flags: ignoreversion 
+Source: "{#SourceDir}\Breuker_Extractor\omni\*"; DestDir: "{app}\_internal\Breuker_Extractor"; Flags: ignoreversion 
 ; Source: "C:\Users\dpolasky\PycharmProjects\CIUSuite2\TWIMExtract\*"; DestDir: "{app}\TWIMExtract"; Flags: ignoreversion recursesubdirs
 Source: "{#SourceDir}\TWIMExtract\*"; DestDir: "{app}\_internal\TWIMExtract"; Permissions: users-modify; Flags: ignoreversion recursesubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
@@ -64,8 +65,8 @@ Source: "{#SourceDir}\TWIMExtract\*"; DestDir: "{app}\_internal\TWIMExtract"; Pe
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "cmd"; Parameters: "/k ""{app}\{#MyAppExeName}"""; IconFilename: "{app}\{#IconName}"
 Name: "{group}\{#ReadmeName}"; Filename: "{app}\{#ReadmeName}"
-Name: "{group}\{#AgilentExtName}"; Filename: "{app}\Agilent_Extractor\{#AgilentExtName}.exe"
-Name: "{group}\{#TWIMExName}"; Filename: "{app}\TWIMExtract\runTWIMExtract.bat"
+Name: "{group}\{#AgilentExtName}"; Filename: "{app}\_internal\Agilent_Extractor\{#AgilentExtName}.exe"
+Name: "{group}\{#TWIMExName}"; Filename: "{app}\_internal\TWIMExtract\runTWIMExtract.bat"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; IconFilename: "{app}\{#IconName}"
 ; Name: "{commondesktop}\{#ReadmeName}"; Filename: "{app}\{#ReadmeName}"; Tasks: desktopicon
