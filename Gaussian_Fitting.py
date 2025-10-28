@@ -1096,7 +1096,7 @@ def compute_area_penalty(gaussian, list_of_gaussians, dt_axis, penalty_mode):
     # for this gaussian, compute how much area it shares with the rest of the list
     total_penalty = 0
     # for gaussian in list_of_gaussians:
-    my_area = scipy.integrate.trapz(gaussfunc(dt_axis, *gaussian.return_popt()), dt_axis)
+    my_area = np.trapz(gaussfunc(dt_axis, *gaussian.return_popt()), dt_axis)
 
     other_gaussians = [x for x in list_of_gaussians if x is not gaussian]
     shared_areas = []
@@ -1142,7 +1142,7 @@ def shared_area_gauss(x_axis, gauss1_params, gauss2_params):
             shared_area_arr.append(gauss1[index])
 
     # return the integrated area over the provided axis
-    return scipy.integrate.trapz(shared_area_arr, x_axis)
+    return np.trapz(shared_area_arr, x_axis)
 
 
 def save_fits_pdf_new(analysis_obj, params_obj, best_fit_list, outputpath):
