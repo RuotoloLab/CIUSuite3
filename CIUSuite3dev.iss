@@ -5,14 +5,14 @@
 #define MyAppDirName "CIUSuite3"
 #define MyAppVersion "1.0"
 #define MyAppPublisher "University of Michigan"
-#define MyAppURL "https://github.com/MRArmbruster/CIUSuite_tests/releases/tag/v3.0.2"
+#define MyAppURL "https://github.com/RuotoloLab/CIUSuite3/releases/tag/v3.0.3"
 #define MyAppExeName "CIU3_Main.exe"
 #define ReadmeName "CIUSuite3_Manual.pdf"
 #define IconName "CIUSuite3_win10.ico"
 #define AgilentExtName "MIDAC_CIU_Extractor"
 #define TWIMExName "TWIMExtract"
-#define SourceDir "C:\Users\armbrusm\Documents\CIUSuite_tests\CIUSuite3"
-#define OutputDir "C:\Users\armbrusm\Documents\CIUSuite_tests\CIUSuite3\Output"
+#define SourceDir "C:\Users\armbrusm\Documents\CIUsuite3\CIUSuite3"
+#define OutputDir "C:\Users\armbrusm\Documents\CIUsuite3\CIUSuite3\Output"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
