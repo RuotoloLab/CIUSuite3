@@ -11,6 +11,7 @@ import numpy as np
 import pandas
 import matplotlib.pyplot as plt
 import matplotlib.patches
+import matplotlib.backends.backend_ps  # ensure EPS/PS backend is bundled for deployments
 import pickle
 import os
 import itertools
@@ -364,8 +365,9 @@ def plot_roc_cuve(roc_data, class_labels, schem_name, dirpath, params_obj, selec
                 try:
                     pdf.savefig()
                 except PermissionError:
-                    messagebox.showerror('Please Close the File Before Saving', 'The file {} is being used by another process! Please close it, THEN press the OK button to retry saving'.format(pdf_output))
-                    plt.savefig()
+                    messagebox.showerror('Please Close the File Before Saving',
+                                         'The file {} is being used by another process! Please close it, THEN press the OK button to retry saving'.format(pdf_output))
+                    plt.savefig(pdf_output)
                 plt.close()
     else:
         # plot ROC curve for single number of selected features
@@ -658,10 +660,22 @@ def run_lda_svc(x_data, label_data):
     :rtype: SVC, LinearDiscriminantAnalysis
     """
     # print(f"label_data = {label_data} \n set = {set(label_data)}")
-    if len(set(label_data)) <= 3:
-        lda = LinearDiscriminantAnalysis(solver='svd', n_components=2)
-    else:
-        lda = LinearDiscriminantAnalysis(solver='svd', n_components=3)
+    x_data = np.asarray(x_data)
+    label_data = np.asarray(label_data)
+    if x_data.ndim == 1:
+        x_data = x_data.reshape(-1, 1)
+    unique_labels = set(label_data.tolist())
+    n_classes = len(unique_labels)
+    if n_classes < 2:
+        logger.error('LDA requires at least two classes to run, got %d', n_classes)
+        raise ValueError('LDA requires at least two classes to run.')
+    desired_components = 2 if n_classes <= 3 else 3
+    max_components = min(x_data.shape[1], n_classes - 1)
+    if max_components < 1:
+        logger.error('LDA requires at least one feature, got %d', x_data.shape[1])
+        raise ValueError('LDA requires at least one feature for LDA.')
+    n_components = min(desired_components, max_components)
+    lda = LinearDiscriminantAnalysis(solver='svd', n_components=n_components)
     lda.fit(x_data, label_data)
     train_lda = lda.transform(x_data)
 
