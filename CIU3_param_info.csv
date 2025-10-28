@@ -74,5 +74,5 @@ classif_91_test_size,1,(Optional) Cross Validation Test Size,int,1,inf,,Test siz
 classif_92_standardize,TRUE,(Advanced) Standardize Data,string,,,True;False,Whether to standardize CIU data prior to classification. Recommended. See manual for details on standardization method. 
 classif_93_std_all_gsns_bool,TRUE,(Advanced) Standardize Gaussians Together,string,,,True;False,Whether to standardize Gaussian inputs across all Gaussian peaks or treat each Gaussian separately. Across all Gaussians generally recommended but individually standardizing can work well when replicates have very consistent numbers of Gaussians.
 silent_clf_4_num_gauss,0,This should not ever be displayed.,int,0,inf,,This should not ever be displayed.
-vendor_1_type,Waters,Which Vendor Data Type to Extract?,string,,,Agilent;Waters;Bruker,"Available vendor raw data formats to extract for CIU analysis are displayed here. Currently supports direct extraction for Waters, Agilent, and Bruker raw data."
+vendor_1_type,Waters,Which Vendor Data Type to Extract?,string,,,Agilent;Waters;Bruker,"Available vendor raw data formats to extract for CIU analysis are displayed here."
 silent_filechooser_dir,T:/Dan/Data/_Subcomplexes and CIU/Avidin/_Control,(Not Displayed),anystring,,,,Save location to allow Waters raw folder chooser to remember the last directory that was chosen. Not displayed to the user. 
