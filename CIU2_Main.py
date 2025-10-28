@@ -203,14 +203,20 @@ class CIUSuite2(object):
         Open the manual
         :return: void
         """
-        subprocess.Popen(help_file, shell=True)
+        try:
+            os.startfile(help_file)
+        except OSError as err:
+            messagebox.showerror('Help File Error', f'Unable to open help file: {err}')
 
     def on_button_about_clicked(self):
         """
         Open the license/about information file
         :return: void
         """
-        subprocess.Popen(about_file, shell=True)
+        try:
+            os.startfile(about_file)
+        except OSError as err:
+            messagebox.showerror('About File Error', f'Unable to open about file: {err}')
 
     def on_button_gui_clicked(self):
         """
