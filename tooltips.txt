@@ -1,5 +1,5 @@
 # component name	tooltip
-Button_vendor_raw	"Extract data directly from Waters (.raw), Agilent raw files ( .d), or Breuker (.d). "
+Button_vendor_raw	"Extract data directly from Waters (.raw), Agilent raw files ( .d), or Bruker (.d). "
 Button_raw_file	Select text (_raw.csv) files to analyze. ***NOTE: automated converters to generate _raw.csv files from raw data are available - see manual for details***
 Button_analysis_file	Select previously processed .ciu files to load for analysis. Files will be displayed in the table below
 Entry_start_files	"To process only some files in the table above, enter the number corresponding to the beginning of the range of files to analyze. Must be an integer value only"
