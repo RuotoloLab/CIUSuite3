@@ -1,4 +1,3 @@
-﻿Parent Folder,mzmin,mzmax,Convert to CCS,Charge,mz
-path_to_data,4445,4455,FALSE,16,4450
-path_to_data,4445,4455,TRUE,16,4450
-path_to_data,4445,4455,TRUE,16,4450
+﻿Parent Folder,mzmin,mzmax,Label Source,Voltage Polarity,Sort Columns,Bin Mobility,Number Bins,Convert to CCS,Charge,mz,Use Recalibrated State,Pressure Compensation Strategy
+C:\Users\armbrusm\Documents\tdfExtract_v2.1\example_file\NEOS NIST native mAb 200mM T0 ramp_1.d,5920,6000,transfer,positive,TRUE,FALSE,,FALSE,,,TRUE,Global
+C:\Users\armbrusm\Documents\tdfExtract_v2.1\example_file\NEOS NIST native mAb 200mM T0 ramp_1.d,6420,6500,transfer,positive,TRUE,TRUE,200,TRUE,23,6450,TRUE,Global
