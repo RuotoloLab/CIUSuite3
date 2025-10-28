@@ -650,14 +650,16 @@ class BreukerImportTypeUI(object):
         ionmz = self.builder.get_object("ionmz_val").get()
         ioncharge = self.builder.get_object("ioncharge_val").get()
 
-        exedir = os.path.dirname(self.breukerextractorexe)
-        exefile = os.path.basename(self.breukerextractorexe)
+        args = [
+            self.breukerextractorexe,
+            str(minimunmz),
+            str(maxmz),
+            str(ionmz),
+            str(ioncharge),
+            "True",
+        ]
 
-        os.chdir(exedir)
-
-        args = f"{exefile} {minimunmz} {maxmz} {ionmz} {ioncharge} True"
-
-        print(args)
+        print(" ".join(args))
 
         completed_proc = subprocess.run(args)
 
@@ -684,14 +686,16 @@ class BreukerImportTypeUI(object):
         print(os.path.dirname(self.breukerextractorexe))
         print(os.path.basename(self.breukerextractorexe))
 
-        exedir = os.path.dirname(self.breukerextractorexe)
-        exefile = os.path.basename(self.breukerextractorexe)
+        args = [
+            self.breukerextractorexe,
+            str(minimunmz),
+            str(maxmz),
+            str(ionmz),
+            str(ioncharge),
+            "False",
+        ]
 
-        os.chdir(exedir)
-
-        args = f"{exefile} {minimunmz} {maxmz} {ionmz} {ioncharge} False"
-
-        print(args)
+        print(" ".join(args))
 
         completed_proc = subprocess.run(args)
 
