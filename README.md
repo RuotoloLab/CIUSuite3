@@ -5,7 +5,7 @@ CIUSuite3 is a software package for the analysis of Collision Induced Unfolding 
 
 
 ## Accepted Data Formats
-CIUSuite3 accepts raw data formats from Waters, Agilent and Bruker instruments. It can also accept CIU data in CVS files.
+CIUSuite3 accepts raw data formats from Waters, Agilent and Bruker instruments. It can also accept CIU data in CSV files.
 
 ## Releases and Source code
 The latest version (in executable file format) of CIUSuite3 can be found at: https://github.com/RuotoloLab/CIUSuite3/releases
